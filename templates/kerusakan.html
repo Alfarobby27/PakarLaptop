@@ -2,19 +2,25 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   <!-- ================= HEADER ================= -->
-  <div class="mb-10">
-    <div class="flex flex-wrap items-center justify-between gap-4">
+  <div class="mb-8 md:mb-10">
+    <div
+      class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+    >
       <div>
-        <h3 class="text-3xl font-bold text-white flex items-center gap-3">
+        <h3
+          class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3"
+        >
           <i class="bi bi-exclamation-triangle-fill text-amber-400"></i>
           Data Kerusakan Laptop
         </h3>
-        <p class="text-slate-400 mt-1">
+        <p class="text-slate-400 mt-1 text-sm md:text-base">
           Daftar jenis kerusakan yang dapat terdeteksi oleh sistem
         </p>
       </div>
-      <div class="text-right">
-        <div class="text-3xl font-bold text-amber-400">{{ faults|length }}</div>
+      <div class="md:text-right">
+        <div class="text-2xl md:text-3xl font-bold text-amber-400">
+          {{ faults|length }}
+        </div>
         <div class="text-xs uppercase tracking-wider text-slate-400">
           Total Kerusakan
         </div>
@@ -23,7 +29,9 @@
   </div>
 
   <!-- ================= FILTER ================= -->
-  <div class="bg-slate-900/60 rounded-2xl border border-slate-700/50 p-6 mb-8">
+  <div
+    class="bg-slate-900/60 rounded-2xl border border-slate-700/50 p-4 md:p-6 mb-8"
+  >
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <!-- Search -->
       <div class="md:col-span-2">
@@ -55,19 +63,18 @@
           <i class="bi bi-layout-wtf"></i> Tampilan
         </label>
 
-        <div class="flex gap-2">
-          <!-- TABLE -->
+        <!-- RESPONSIVE: stack di mobile, row di desktop -->
+        <div class="flex flex-col sm:flex-row gap-2">
           <button
             id="tableViewBtn"
-            class="flex-1 py-3 rounded-lg text-sm font-semibold border bg-amber-500/20 border-amber-500/40 text-amber-400 hover:bg-amber-500/30 transition"
+            class="w-full py-3 rounded-lg text-sm font-semibold border bg-amber-500/20 border-amber-500/40 text-amber-400 hover:bg-amber-500/30 transition"
           >
             <i class="bi bi-table"></i> Tabel
           </button>
 
-          <!-- CARD -->
           <button
             id="cardViewBtn"
-            class="flex-1 py-3 rounded-lg text-sm font-semibold border bg-slate-800 border-slate-600 text-slate-300 hover:bg-slate-700 transition"
+            class="w-full py-3 rounded-lg text-sm font-semibold border bg-slate-800 border-slate-600 text-slate-300 hover:bg-slate-700 transition"
           >
             <i class="bi bi-grid-3x3-gap"></i> Kartu
           </button>
@@ -94,50 +101,53 @@
 
   <!-- ================= TABLE VIEW ================= -->
   <div id="tableView">
-    <div
-      class="bg-slate-900 rounded-2xl border border-slate-700 overflow-hidden"
-    >
-      <table class="w-full text-sm">
-        <thead class="bg-slate-800 text-slate-300">
-          <tr>
-            <th class="px-6 py-4 w-24 text-left">Kode</th>
-            <th class="px-6 py-4 text-left">Nama Kerusakan</th>
-            <th class="px-6 py-4 text-left">Solusi</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-slate-700">
-          {% for code, fault in faults.items() %}
-          <tr
-            class="fault-row hover:bg-slate-800 transition"
-            data-code="{{ code }}"
-            data-name="{{ fault.name }}"
-          >
-            <td class="px-6 py-4">
-              <span
-                class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold"
-              >
-                {{ code }}
-              </span>
-            </td>
-            <td class="px-6 py-4 text-slate-200 font-medium">
-              {{ fault.name }}
-            </td>
-            <td class="px-6 py-4 text-slate-400">{{ fault.solution }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <!-- RESPONSIVE SCROLL -->
+    <div class="overflow-x-auto">
+      <div
+        class="min-w-[640px] bg-slate-900 rounded-2xl border border-slate-700 overflow-hidden"
+      >
+        <table class="w-full text-sm">
+          <thead class="bg-slate-800 text-slate-300">
+            <tr>
+              <th class="px-6 py-4 w-24 text-left">Kode</th>
+              <th class="px-6 py-4 text-left">Nama Kerusakan</th>
+              <th class="px-6 py-4 text-left">Solusi</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-700">
+            {% for code, fault in faults.items() %}
+            <tr
+              class="fault-row hover:bg-slate-800 transition"
+              data-code="{{ code }}"
+              data-name="{{ fault.name }}"
+            >
+              <td class="px-6 py-4">
+                <span
+                  class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold"
+                >
+                  {{ code }}
+                </span>
+              </td>
+              <td class="px-6 py-4 text-slate-200 font-medium">
+                {{ fault.name }}
+              </td>
+              <td class="px-6 py-4 text-slate-400">{{ fault.solution }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
   <!-- ================= CARD VIEW ================= -->
   <div
     id="cardView"
-    class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
   >
     {% for code, fault in faults.items() %}
     <div
-      class="fault-card bg-slate-900 border border-slate-700 rounded-2xl p-6 hover:border-amber-500/50 transition"
+      class="fault-card bg-slate-900 border border-slate-700 rounded-2xl p-5 hover:border-amber-500/50 transition"
       data-code="{{ code }}"
       data-name="{{ fault.name }}"
     >
@@ -167,7 +177,7 @@
   <div class="mt-10">
     <a
       href="/"
-      class="inline-flex items-center gap-2 px-8 py-3 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 text-slate-200 transition"
+      class="inline-flex items-center gap-2 px-6 md:px-8 py-3 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 text-slate-200 transition"
     >
       <i class="bi bi-arrow-left"></i> Kembali
     </a>
@@ -190,24 +200,21 @@
 
   let currentView = "table";
 
-  function setActiveButton(active, inactive) {
+  function setActive(active, inactive) {
     active.className =
-      "flex-1 py-3 rounded-lg text-sm font-semibold border bg-amber-500/20 border-amber-500/40 text-amber-400 hover:bg-amber-500/30 transition";
+      "w-full py-3 rounded-lg text-sm font-semibold border bg-amber-500/20 border-amber-500/40 text-amber-400 hover:bg-amber-500/30 transition";
     inactive.className =
-      "flex-1 py-3 rounded-lg text-sm font-semibold border bg-slate-800 border-slate-600 text-slate-300 hover:bg-slate-700 transition";
+      "w-full py-3 rounded-lg text-sm font-semibold border bg-slate-800 border-slate-600 text-slate-300 hover:bg-slate-700 transition";
   }
 
   function switchView(view) {
     currentView = view;
-
     tableView.classList.toggle("hidden", view !== "table");
     cardView.classList.toggle("hidden", view !== "card");
 
-    if (view === "table") {
-      setActiveButton(tableBtn, cardBtn);
-    } else {
-      setActiveButton(cardBtn, tableBtn);
-    }
+    view === "table"
+      ? setActive(tableBtn, cardBtn)
+      : setActive(cardBtn, tableBtn);
 
     filter();
   }
@@ -221,7 +228,6 @@
       const match =
         el.dataset.code.toLowerCase().includes(term) ||
         el.dataset.name.toLowerCase().includes(term);
-
       el.style.display = match ? "" : "none";
       if (match) count++;
     });
