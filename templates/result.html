@@ -20,15 +20,16 @@
 
     <p class="text-slate-300">
       <strong>Fakta Awal (Kode):</strong>
-      {% if selected_symptoms %} {{ selected_symptoms | join(", ") }} {% else %}
+      {% if selected_symptoms %} {{ selected_symptoms | unique | join(", ") }}
+      {% else %}
       <span class="italic text-slate-400">Tidak ada fakta awal</span>
       {% endif %}
     </p>
 
     <p class="text-slate-400">
       <strong>Fakta Awal (Gejala):</strong>
-      {% if selected_symptoms %} {% for g in selected_symptoms %} {{ SYMPTOMS[g]
-      }}{% if not loop.last %}, {% endif %} {% endfor %} {% else %}
+      {% if selected_symptoms %} {% for g in selected_symptoms | unique %} {{
+      SYMPTOMS[g] }}{% if not loop.last %}, {% endif %} {% endfor %} {% else %}
       <span class="italic">Tidak ada gejala yang dipilih</span>
       {% endif %}
     </p>

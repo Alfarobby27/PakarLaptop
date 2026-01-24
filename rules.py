@@ -115,7 +115,7 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
     ]
 
     return {
-        "facts_initial": selected_symptoms,
+        "facts_initial": sorted(set(selected_symptoms)),
         "log": log,
         "final_faults": final_faults,
         "inference_finished_at": inference_finished_at,
