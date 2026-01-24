@@ -1,21 +1,23 @@
 {% extends "base.html" %} {% block content %}
 
-<div class="max-w-6xl mx-auto space-y-10">
+<div class="max-w-6xl mx-auto px-4 space-y-10">
   <!-- ================= HEADER ================= -->
   <div class="text-center">
-    <h3 class="text-4xl font-bold text-white mb-2">
+    <h3 class="text-3xl sm:text-4xl font-bold text-white mb-2">
       Form Diagnosa Kerusakan Laptop
     </h3>
-    <p class="text-slate-400">
+    <p class="text-slate-400 text-sm sm:text-base">
       Pilih gejala secara manual atau gunakan aturan (rule) untuk diagnosa cepat
     </p>
   </div>
 
   <!-- ================= MODE DIAGNOSA ================= -->
   <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6">
-    <h4 class="text-xl font-semibold text-white mb-4">⚙️ Mode Diagnosa</h4>
+    <h4 class="text-lg sm:text-xl font-semibold text-white mb-4">
+      ⚙️ Mode Diagnosa
+    </h4>
 
-    <div class="flex gap-6">
+    <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
       <label class="flex items-center gap-3 cursor-pointer">
         <input
           type="radio"
@@ -25,7 +27,9 @@
           checked
           class="w-5 h-5 accent-blue-500"
         />
-        <span class="text-slate-200"> AND (Semua gejala harus terpenuhi) </span>
+        <span class="text-slate-200 text-sm sm:text-base">
+          AND (Semua gejala harus terpenuhi)
+        </span>
       </label>
 
       <label class="flex items-center gap-3 cursor-pointer">
@@ -36,21 +40,23 @@
           form="diagnoseForm"
           class="w-5 h-5 accent-blue-500"
         />
-        <span class="text-slate-200"> OR (Salah satu gejala terpenuhi) </span>
+        <span class="text-slate-200 text-sm sm:text-base">
+          OR (Salah satu gejala terpenuhi)
+        </span>
       </label>
     </div>
   </div>
 
   <!-- ================= RULE SELECTOR ================= -->
   <div class="bg-slate-800/70 border border-slate-700 rounded-2xl p-6">
-    <h4 class="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+    <h4 class="text-lg sm:text-xl font-semibold text-white mb-4">
       🔍 Pilih Berdasarkan Aturan
     </h4>
 
     {% set rules = { "R1": "G1,G2,G3,G6", "R2": "G4", "R3": "G5", "R4": "G7,G8",
     "R5": "G9", "R6": "G10", "R7": "G11" } %}
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
       {% for r, g in rules.items() %}
       <button
         type="button"
@@ -58,7 +64,7 @@
         class="rule-btn rounded-xl border border-slate-600 p-4 bg-slate-900 text-slate-200 hover:bg-blue-600/20 transition-all"
       >
         <div class="flex items-center justify-between">
-          <span class="text-xl font-bold">{{ r }}</span>
+          <span class="text-lg font-bold">{{ r }}</span>
           <span class="text-xs px-2 py-1 rounded-full bg-slate-700">
             Rule
           </span>
@@ -67,7 +73,6 @@
       </button>
       {% endfor %}
 
-      <!-- RESET -->
       <button
         type="button"
         id="resetBtn"
@@ -79,9 +84,10 @@
   </div>
 
   <!-- ================= FORM ================= -->
-  <form method="POST" action="/hasil" id="diagnoseForm">
+  <form method="POST" action="/hasil" id="diagnoseForm" class="space-y-8">
+    <!-- ===== DESKTOP TABLE ===== -->
     <div
-      class="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden"
+      class="hidden md:block bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden"
     >
       <table class="w-full">
         <thead class="bg-slate-900">
@@ -91,7 +97,6 @@
             <th class="px-6 py-4 text-slate-300">Gejala</th>
           </tr>
         </thead>
-
         <tbody class="divide-y divide-slate-700">
           {% for code, name in symptoms.items() %}
           <tr class="symptom-row hover:bg-slate-700/50 transition">
@@ -117,18 +122,44 @@
       </table>
     </div>
 
+    <!-- ===== MOBILE CARD LIST ===== -->
+    <div class="md:hidden space-y-4">
+      {% for code, name in symptoms.items() %}
+      <label
+        class="symptom-row block bg-slate-800 border border-slate-700 rounded-xl p-4 cursor-pointer"
+      >
+        <div class="flex items-start gap-4">
+          <input
+            type="checkbox"
+            name="symptoms"
+            value="{{ code }}"
+            class="symptom-checkbox mt-1 w-5 h-5 accent-blue-500"
+          />
+          <div>
+            <span
+              class="inline-block mb-1 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs"
+            >
+              {{ code }}
+            </span>
+            <p class="text-slate-200 text-sm">{{ name }}</p>
+          </div>
+        </div>
+      </label>
+      {% endfor %}
+    </div>
+
     <!-- WARNING -->
     <div
       id="warningMessage"
-      class="hidden mt-6 bg-amber-900/20 border border-amber-500/30 rounded-xl p-4"
+      class="hidden bg-amber-900/20 border border-amber-500/30 rounded-xl p-4"
     >
-      <p class="text-amber-400 font-medium">
+      <p class="text-amber-400 font-medium text-sm">
         ⚠ Pilih minimal satu gejala untuk melanjutkan diagnosa.
       </p>
     </div>
 
     <!-- ACTION -->
-    <div class="flex gap-4 mt-8 justify-center">
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <button
         type="submit"
         class="px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-semibold rounded-xl shadow-lg transition"
@@ -138,7 +169,7 @@
 
       <a
         href="/"
-        class="px-10 py-4 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl"
+        class="px-10 py-4 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-center"
       >
         Kembali
       </a>
@@ -153,14 +184,12 @@
   const rows = document.querySelectorAll(".symptom-row");
   const resetBtn = document.getElementById("resetBtn");
 
-  // Highlight row
   checkboxes.forEach((cb, idx) => {
     cb.addEventListener("change", () => {
       rows[idx].classList.toggle("bg-blue-600/10", cb.checked);
     });
   });
 
-  // Rule selection
   ruleButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       ruleButtons.forEach((b) =>
@@ -178,7 +207,6 @@
     });
   });
 
-  // Reset
   resetBtn.addEventListener("click", () => {
     ruleButtons.forEach((b) =>
       b.classList.remove("ring-2", "ring-blue-500", "bg-blue-600/20"),
@@ -189,7 +217,6 @@
     });
   });
 
-  // Validation
   const form = document.getElementById("diagnoseForm");
   const warning = document.getElementById("warningMessage");
 
