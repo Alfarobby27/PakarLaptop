@@ -5,50 +5,46 @@ from typing import List, Dict, Any
 FAULTS = {
     "K1": {
         "name": "Kerusakan kabel fleksibel LCD",
-        "solution": "Memeriksa dan membersihkan kabel fleksibel LCD yang terhubung ke panel LCD dan mainboard. Jika kondisi tidak berubah, dilakukan penggantian kabel fleksibel LCD."
+        "solution": "Memeriksa dan membersihkan kabel fleksibel LCD."
     },
     "K2": {
         "name": "Kerusakan prosesor",
-        "solution": "Melepas prosesor dari soket, membersihkan bagian prosesor dan soketnya, kemudian memasang kembali. Jika laptop tetap tidak menyala, kemungkinan terjadi kerusakan pada mainboard."
+        "solution": "Membersihkan dan memasang ulang prosesor."
     },
     "K3": {
         "name": "Kerusakan modul RAM",
-        "solution": "Membersihkan modul RAM dan soket RAM, kemudian melakukan pengujian ulang. Jika diperlukan, dilakukan pengujian dengan monitor eksternal."
+        "solution": "Membersihkan dan menguji ulang RAM."
     },
     "K4": {
         "name": "Kerusakan DVD RW/Combo",
-        "solution": "Melepas perangkat DVD RW/Combo dan membersihkan bagian konektor. Jika perangkat tidak dapat membaca/menulis CD/DVD, dilakukan penggantian."
+        "solution": "Membersihkan atau mengganti DVD RW."
     },
     "K5": {
         "name": "Kerusakan keyboard",
-        "solution": "Membersihkan bagian keyboard yang bermasalah serta memeriksa kabel/soket keyboard yang terhubung ke mainboard."
+        "solution": "Membersihkan atau mengganti keyboard."
     },
     "K6": {
-        "name": "Gangguan driver VGA atau komponen grafis",
-        "solution": "Melakukan instalasi ulang/pembaruan driver VGA. Jika tampilan masih tidak normal, periksa kabel LCD, komponen VGA, atau mainboard."
+        "name": "Gangguan driver VGA",
+        "solution": "Instal ulang driver VGA."
     },
     "K7": {
         "name": "Kerusakan power switch",
-        "solution": "Memeriksa dan membersihkan komponen power switch. Jika laptop tetap tidak dapat menyala, kemungkinan terdapat gangguan pada rangkaian daya di mainboard."
-    },
-    "K8": {
-        "name": "Kerusakan motherboard",
-        "solution": "Jika setelah pemeriksaan komponen lain laptop tetap tidak berfungsi, disimpulkan kerusakan motherboard dan disarankan diperiksa teknisi."
+        "solution": "Periksa dan bersihkan power switch."
     }
 }
 
 SYMPTOMS = {
-    "G1": "Layar laptop menampilkan warna putih",
-    "G2": "Tampilan gambar bergetar",
+    "G1": "Layar putih",
+    "G2": "Gambar bergetar",
     "G3": "Layar berkedip",
-    "G4": "Lampu indikator menyala lalu mati kembali",
-    "G5": "Lampu indikator menyala tetapi layar tidak menampilkan gambar",
-    "G6": "LCD kadang menyala dan kadang mati",
-    "G7": "DVD RW/Combo tidak terdeteksi",
-    "G8": "DVD RW/Combo tidak dapat membaca atau menulis CD/DVD",
+    "G4": "Lampu indikator mati kembali",
+    "G5": "Lampu menyala tapi layar kosong",
+    "G6": "LCD hidup mati",
+    "G7": "DVD tidak terdeteksi",
+    "G8": "DVD tidak membaca",
     "G9": "Keyboard tidak berfungsi",
-    "G10": "Tampilan gambar tidak normal atau muncul garis",
-    "G11": "Laptop sulit dinyalakan"
+    "G10": "Tampilan bergaris",
+    "G11": "Laptop sulit menyala"
 }
 
 RULES = {
@@ -64,24 +60,20 @@ RULES = {
 # ================= FORWARD CHAINING =================
 
 def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[str, Any]:
-    mode = mode.upper()
-    if mode not in ("AND", "OR"):
-        mode = "AND"
-
     facts = set(selected_symptoms)
     used_rules = set()
     log = []
 
     step = 1
+    inference_finished_at = 0
 
     while True:
         new_fact = False
 
-        for rule_code in sorted(RULES.keys()):
-            if rule_code in used_rules:
+        for rule, conditions in RULES.items():
+            if rule in used_rules:
                 continue
 
-            conditions = RULES[rule_code]
             facts_before = sorted(facts)
 
             satisfied = (
@@ -90,24 +82,25 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
                 else any(c in facts for c in conditions)
             )
 
+            if satisfied:
+                used_rules.add(rule)
+                if rule not in facts:
+                    facts.add(rule)
+                    new_fact = True
+                    inference_finished_at = step
+
             log.append({
                 "step": step,
-                "rule": rule_code,
+                "rule": rule,
                 "status": satisfied,
                 "if_condition": conditions,
-                "then_code": rule_code,
-                "then_name": FAULTS[rule_code]["name"],
+                "then_code": rule,
+                "then_name": FAULTS[rule]["name"],
                 "facts_before": facts_before,
                 "facts_after": sorted(facts)
             })
 
             step += 1
-
-            if satisfied:
-                used_rules.add(rule_code)
-                if rule_code not in facts:
-                    facts.add(rule_code)
-                    new_fact = True
 
         if not new_fact:
             break
@@ -125,5 +118,6 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
         "facts_initial": selected_symptoms,
         "log": log,
         "final_faults": final_faults,
+        "inference_finished_at": inference_finished_at,
         "mode": mode
     }
