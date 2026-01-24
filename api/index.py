@@ -1,15 +1,16 @@
 import sys
 import os
 
-# supaya rules.py terbaca
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
 
 from flask import Flask, render_template, request
 from rules import SYMPTOMS, FAULTS, forward_chaining
 
 app = Flask(
     __name__,
-    template_folder="../templates"
+    template_folder=os.path.join(BASE_DIR, "templates"),
+    static_folder=os.path.join(BASE_DIR, "static")
 )
 
 @app.route("/")
@@ -26,7 +27,7 @@ def data_kerusakan():
 
 @app.route("/tentang")
 def data_tentang():
-    return render_template("tentang.html", faults=FAULTS)
+    return render_template("tentang.html")
 
 @app.route("/diagnose-start")
 def diagnosa_page():
