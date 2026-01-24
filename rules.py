@@ -57,6 +57,7 @@ def forward_chaining(
     mode: str = "AND"
 ) -> Dict[str, Any]:
 
+    selected_symptoms = list(dict.fromkeys(selected_symptoms))
     facts = set(selected_symptoms)
     log = []
     step = 1
