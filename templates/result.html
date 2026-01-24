@@ -40,7 +40,8 @@
 
     {% if process_log %}
     <ul class="space-y-6">
-      {% for step in process_log %}
+      {# 🔴 BATASI SAMPAI INFERENSI SELESAI #} {% for step in process_log if
+      step.step <= inference_finished_at %}
       <li
         class="relative pl-6 border-l-4 {% if step.status %} border-emerald-500 {% else %} border-red-500 {% endif %}"
       >
@@ -111,12 +112,22 @@
 
         {% if not step.status %}
         <p class="text-red-400 text-sm mt-3 italic">
-          Rule tidak terpenuhi, sistem melanjutkan ke rule berikutnya.
+          Rule tidak terpenuhi pada tahap ini.
         </p>
         {% endif %}
       </li>
       {% endfor %}
     </ul>
+
+    <!-- PENANDA INFERENSI SELESAI -->
+    <div class="mt-8 text-center">
+      <span
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold"
+      >
+        ✔ Proses inferensi dihentikan karena tidak ada fakta baru
+      </span>
+    </div>
+
     {% else %}
     <p class="text-slate-400 italic">
       Tidak terdapat proses inferensi yang dapat ditampilkan.

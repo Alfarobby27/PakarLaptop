@@ -1,5 +1,7 @@
 from typing import List, Dict, Any
 
+# ================= DATA =================
+
 FAULTS = {
     "K1": {"name": "Kerusakan kabel fleksibel LCD", "solution": "Memeriksa dan membersihkan kabel fleksibel LCD yang terhubung ke panel LCD dan mainboard. Jika kondisi tidak berubah, dilakukan penggantian kabel fleksibel LCD."},
     "K2": {"name": "Kerusakan prosesor", "solution": "Melepas prosesor dari soket, membersihkan bagian prosesor dan soketnya, kemudian memasang kembali. Jika laptop tetap tidak menyala, kemungkinan terjadi kerusakan pada mainboard."},
@@ -35,19 +37,23 @@ RULES = {
     "K7": ["G11"]
 }
 
+# ================= FORWARD CHAINING =================
+
 def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[str, Any]:
     mode = mode.upper()
     if mode not in ("AND", "OR"):
         mode = "AND"
 
-    selected_symptoms = list(dict.fromkeys(selected_symptoms))
-    facts = set(selected_symptoms)
+    # Hilangkan duplikasi gejala
+    facts = set(dict.fromkeys(selected_symptoms))
     log = []
-    step = 1
     used_rules = set()
 
+    step = 1
+    inference_finished_at = 0
+
     while True:
-        new_facts = set()  # Fakta baru yang muncul di iterasi ini
+        new_fact_added = False
 
         for conclusion in sorted(RULES.keys()):
             if conclusion in used_rules:
@@ -56,16 +62,20 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
             conditions = RULES[conclusion]
             facts_before = sorted(facts)
 
+            # Evaluasi rule
             if mode == "AND":
                 satisfied = all(c in facts for c in conditions)
-            else:  # OR
+            else:
                 satisfied = any(c in facts for c in conditions)
 
             if satisfied:
-                if conclusion not in facts:
-                    new_facts.add(conclusion)  # Tambahkan ke new_facts
-
                 used_rules.add(conclusion)
+
+                if conclusion not in facts:
+                    facts.add(conclusion)
+                    new_fact_added = True
+                    inference_finished_at = step
+
                 log.append({
                     "step": step,
                     "rule": conclusion,
@@ -75,38 +85,30 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
                     "then_code": conclusion,
                     "then_name": FAULTS[conclusion]["name"],
                     "facts_before": facts_before,
-                    "facts_after": sorted(facts | new_facts),
-                    "new_fact_added": conclusion not in facts
+                    "facts_after": sorted(facts),
+                    "new_fact_added": conclusion not in facts_before
                 })
-                step += 1
-            else:
-                log.append({
-                    "step": step,
-                    "rule": conclusion,
-                    "status": False,
-                    "operator": mode,
-                    "if_condition": conditions,
-                    "then_code": conclusion,
-                    "then_name": FAULTS[conclusion]["name"],
-                    "facts_before": facts_before,
-                    "facts_after": facts_before,
-                    "new_fact_added": False
-                })
+
                 step += 1
 
-        if not new_facts:  # Tidak ada fakta baru di iterasi ini → berhenti
+        # 🔴 TIDAK ADA FAKTA BARU → STOP INFERENSI
+        if not new_fact_added:
             break
 
-        facts |= new_facts  # Tambahkan semua fakta baru ke facts
-
+    # Ambil kesimpulan akhir
     final_faults = [
-        {"code": f, "name": FAULTS[f]["name"], "solution": FAULTS[f]["solution"]}
+        {
+            "code": f,
+            "name": FAULTS[f]["name"],
+            "solution": FAULTS[f]["solution"]
+        }
         for f in facts if f in FAULTS
     ]
 
     return {
         "mode": mode,
-        "facts_initial": selected_symptoms,
+        "facts_initial": sorted(selected_symptoms),
         "log": log,
-        "final_faults": final_faults
+        "final_faults": final_faults,
+        "inference_finished_at": inference_finished_at
     }
