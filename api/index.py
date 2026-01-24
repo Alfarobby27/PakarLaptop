@@ -1,11 +1,9 @@
 import sys
 import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(BASE_DIR)
-
 from flask import Flask, render_template, request
 from rules import SYMPTOMS, FAULTS, forward_chaining
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(
     __name__,
@@ -35,33 +33,24 @@ def diagnosa_page():
 
 @app.route("/hasil", methods=["POST"])
 def hasil_diagnosa():
-    # =========================
-    # AMBIL & BERSIHKAN GEJALA
-    # =========================
-    selected_raw = request.form.getlist("symptoms")
-    selected_symptoms = list(dict.fromkeys(selected_raw))
-
+    selected_symptoms = list(dict.fromkeys(request.form.getlist("symptoms")))
     mode = request.form.get("mode", "AND")
 
-    # =========================
-    # PROSES FORWARD CHAINING
-    # =========================
     result = forward_chaining(selected_symptoms, mode)
 
     mode_label = {
         "AND": "AND (Semua gejala harus terpenuhi)",
         "OR": "OR (Salah satu gejala terpenuhi)"
-    }.get(mode, mode)
+    }[result["mode"]]
 
     return render_template(
         "result.html",
         selected_symptoms=result["facts_initial"],
         process_log=result["log"],
         final_fault_detail=result["final_faults"],
-        mode=mode,
+        mode=result["mode"],
         mode_label=mode_label,
         SYMPTOMS=SYMPTOMS
     )
 
-# WAJIB untuk Vercel
 app = app
