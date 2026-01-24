@@ -5,31 +5,35 @@ from typing import List, Dict, Any
 FAULTS = {
     "K1": {
         "name": "Kerusakan kabel fleksibel LCD",
-        "solution": "Memeriksa dan membersihkan kabel fleksibel LCD."
+        "solution": "Memeriksa dan membersihkan kabel fleksibel LCD yang terhubung ke panel LCD dan mainboard. Apabila kondisi tidak berubah, dilakukan penggantian kabel fleksibel LCD."
     },
     "K2": {
         "name": "Kerusakan prosesor",
-        "solution": "Membersihkan dan memasang ulang prosesor."
+        "solution": "Melepas prosesor dari soket, membersihkan bagian prosesor dan soketnya, kemudian memasang kembali. Jika laptop tetap tidak menyala, kemungkinan terjadi kerusakan pada mainboard."
     },
     "K3": {
         "name": "Kerusakan modul RAM",
-        "solution": "Membersihkan dan menguji ulang RAM."
+        "solution": "Membersihkan modul RAM dan soket RAM, kemudian melakukan pengujian ulang. Jika diperlukan, dilakukan pengujian dengan monitor eksternal."
     },
     "K4": {
         "name": "Kerusakan DVD RW/Combo",
-        "solution": "Membersihkan atau mengganti DVD RW."
+        "solution": "Melepas perangkat DVD RW/Combo dan membersihkan bagian konektor. Apabila perangkat tidak dapat membaca atau menulis data, dilakukan penggantian DVD RW/Combo."
     },
     "K5": {
         "name": "Kerusakan keyboard",
-        "solution": "Membersihkan atau mengganti keyboard."
+        "solution": "Membersihkan bagian keyboard yang bermasalah serta memeriksa kabel dan soket keyboard yang terhubung ke mainboard."
     },
     "K6": {
         "name": "Gangguan driver VGA",
-        "solution": "Instal ulang driver VGA."
+        "solution": "Melakukan instalasi ulang atau pembaruan (update) driver VGA. Jika tampilan masih tidak normal, dilakukan pemeriksaan pada kabel LCD, komponen VGA, atau mainboard."
     },
     "K7": {
         "name": "Kerusakan power switch",
-        "solution": "Periksa dan bersihkan power switch."
+        "solution": "Memeriksa dan membersihkan komponen power switch. Jika laptop tetap tidak dapat menyala, kemungkinan terdapat gangguan pada rangkaian daya di mainboard."
+    },
+    "K8": {
+        "name": "Kerusakan motherboard",
+        "solution": "Apabila setelah dilakukan pemeriksaan komponen lain laptop tetap tidak berfungsi, maka disimpulkan terjadi kerusakan pada motherboard dan disarankan dilakukan pemeriksaan lanjutan oleh teknisi."
     }
 }
 
