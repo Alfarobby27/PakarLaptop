@@ -46,9 +46,8 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
     step = 1
     used_rules = set()
 
-    # Forward chaining loop
     while True:
-        rule_applied = False
+        new_fact_added = False  # Track apakah ada fakta baru di loop ini
 
         for conclusion in sorted(RULES.keys()):
             if conclusion in used_rules:
@@ -63,9 +62,12 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
                 satisfied = any(c in facts for c in conditions)
 
             if satisfied:
-                facts.add(conclusion)
+                # Hanya catat fakta baru
+                if conclusion not in facts:
+                    facts.add(conclusion)
+                    new_fact_added = True
+
                 used_rules.add(conclusion)
-                rule_applied = True
 
                 log.append({
                     "step": step,
@@ -76,10 +78,10 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
                     "then_code": conclusion,
                     "then_name": FAULTS[conclusion]["name"],
                     "facts_before": facts_before,
-                    "facts_after": sorted(facts)
+                    "facts_after": sorted(facts),
+                    "new_fact_added": new_fact_added
                 })
                 step += 1
-                break
             else:
                 log.append({
                     "step": step,
@@ -90,12 +92,13 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
                     "then_code": conclusion,
                     "then_name": FAULTS[conclusion]["name"],
                     "facts_before": facts_before,
-                    "facts_after": facts_before
+                    "facts_after": facts_before,
+                    "new_fact_added": False
                 })
                 step += 1
 
-        # Hentikan jika tidak ada rule baru yang bisa diterapkan
-        if not rule_applied:
+        # Hentikan loop jika **tidak ada fakta baru** yang ditambahkan
+        if not new_fact_added:
             break
 
     final_faults = [
