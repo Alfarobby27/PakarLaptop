@@ -54,16 +54,20 @@
         <label class="text-sm text-slate-300 mb-2 block">
           <i class="bi bi-layout-wtf"></i> Tampilan
         </label>
+
         <div class="flex gap-2">
+          <!-- TABLE -->
           <button
             id="tableViewBtn"
-            class="flex-1 py-3 rounded-lg text-sm font-semibold border bg-amber-500/20 border-amber-500/30 text-amber-400"
+            class="flex-1 py-3 rounded-lg text-sm font-semibold border bg-amber-500/20 border-amber-500/40 text-amber-400 hover:bg-amber-500/30 transition"
           >
             <i class="bi bi-table"></i> Tabel
           </button>
+
+          <!-- CARD -->
           <button
             id="cardViewBtn"
-            class="flex-1 py-3 rounded-lg text-sm font-semibold border bg-slate-800 border-slate-600 text-slate-300"
+            class="flex-1 py-3 rounded-lg text-sm font-semibold border bg-slate-800 border-slate-600 text-slate-300 hover:bg-slate-700 transition"
           >
             <i class="bi bi-grid-3x3-gap"></i> Kartu
           </button>
@@ -186,13 +190,24 @@
 
   let currentView = "table";
 
+  function setActiveButton(active, inactive) {
+    active.className =
+      "flex-1 py-3 rounded-lg text-sm font-semibold border bg-amber-500/20 border-amber-500/40 text-amber-400 hover:bg-amber-500/30 transition";
+    inactive.className =
+      "flex-1 py-3 rounded-lg text-sm font-semibold border bg-slate-800 border-slate-600 text-slate-300 hover:bg-slate-700 transition";
+  }
+
   function switchView(view) {
     currentView = view;
+
     tableView.classList.toggle("hidden", view !== "table");
     cardView.classList.toggle("hidden", view !== "card");
 
-    tableBtn.classList.toggle("bg-amber-500/20", view === "table");
-    cardBtn.classList.toggle("bg-amber-500/20", view === "card");
+    if (view === "table") {
+      setActiveButton(tableBtn, cardBtn);
+    } else {
+      setActiveButton(cardBtn, tableBtn);
+    }
 
     filter();
   }
@@ -226,6 +241,7 @@
     searchInput.value = "";
     filter();
   });
+
   tableBtn.addEventListener("click", () => switchView("table"));
   cardBtn.addEventListener("click", () => switchView("card"));
 
