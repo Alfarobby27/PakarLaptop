@@ -34,7 +34,7 @@ SYMPTOMS = {
 }
 
 # ============================
-# RULE BASE (NETRAL)
+# RULE BASE
 # ============================
 
 RULES = {
@@ -49,7 +49,6 @@ RULES = {
 
 # ============================
 # FORWARD CHAINING
-# mode = "AND" | "OR"
 # ============================
 
 def forward_chaining(
@@ -57,7 +56,14 @@ def forward_chaining(
     mode: str = "AND"
 ) -> Dict[str, Any]:
 
+    # Normalisasi mode
+    mode = mode.upper()
+    if mode not in ("AND", "OR"):
+        mode = "AND"
+
+    # Normalisasi fakta awal (hilangkan duplikasi)
     selected_symptoms = list(dict.fromkeys(selected_symptoms))
+
     facts = set(selected_symptoms)
     log = []
     step = 1
@@ -66,14 +72,16 @@ def forward_chaining(
     while True:
         rule_applied = False
 
-        for conclusion, conditions in RULES.items():
+        for conclusion in sorted(RULES.keys()):
             if conclusion in used_rules:
                 continue
+
+            conditions = RULES[conclusion]
 
             # Evaluasi aturan
             if mode == "AND":
                 satisfied = all(c in facts for c in conditions)
-            else:  # OR
+            else:
                 satisfied = any(c in facts for c in conditions)
 
             facts_before = sorted(facts)
@@ -113,10 +121,6 @@ def forward_chaining(
 
         if not rule_applied:
             break
-
-    # ============================
-    # KESIMPULAN
-    # ============================
 
     final_faults = [
         {

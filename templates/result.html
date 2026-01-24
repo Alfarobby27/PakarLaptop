@@ -10,7 +10,7 @@
   </div>
 
   <!-- ================= INFO AWAL ================= -->
-  <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 space-y-2">
+  <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 space-y-3">
     <p class="text-slate-300">
       <strong>Mode Diagnosa:</strong>
       <span class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400">
@@ -20,13 +20,17 @@
 
     <p class="text-slate-300">
       <strong>Fakta Awal (Kode):</strong>
-      {{ selected_symptoms | join(", ") }}
+      {% if selected_symptoms %} {{ selected_symptoms | join(", ") }} {% else %}
+      <span class="italic text-slate-400">Tidak ada fakta awal</span>
+      {% endif %}
     </p>
 
     <p class="text-slate-400">
       <strong>Fakta Awal (Gejala):</strong>
-      {% for g in selected_symptoms %} {{ SYMPTOMS[g] }}{% if not loop.last %},
-      {% endif %} {% endfor %}
+      {% if selected_symptoms %} {% for g in selected_symptoms %} {{ SYMPTOMS[g]
+      }}{% if not loop.last %}, {% endif %} {% endfor %} {% else %}
+      <span class="italic">Tidak ada gejala yang dipilih</span>
+      {% endif %}
     </p>
   </div>
 
@@ -34,6 +38,7 @@
   <div class="bg-slate-800 border border-slate-700 rounded-xl p-6">
     <h4 class="text-xl font-semibold text-white mb-6">🔄 Tahapan Inferensi</h4>
 
+    {% if process_log %}
     <ul class="space-y-6">
       {% for step in process_log %}
       <li
@@ -112,6 +117,11 @@
       </li>
       {% endfor %}
     </ul>
+    {% else %}
+    <p class="text-slate-400 italic">
+      Tidak terdapat proses inferensi yang dapat ditampilkan.
+    </p>
+    {% endif %}
   </div>
 
   <!-- ================= KESIMPULAN ================= -->

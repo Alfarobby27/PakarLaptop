@@ -35,10 +35,18 @@ def diagnosa_page():
 
 @app.route("/hasil", methods=["POST"])
 def hasil_diagnosa():
-    selected = request.form.getlist("symptoms")
+    # =========================
+    # AMBIL & BERSIHKAN GEJALA
+    # =========================
+    selected_raw = request.form.getlist("symptoms")
+    selected_symptoms = list(dict.fromkeys(selected_raw))
+
     mode = request.form.get("mode", "AND")
 
-    log_data = forward_chaining(selected, mode)
+    # =========================
+    # PROSES FORWARD CHAINING
+    # =========================
+    result = forward_chaining(selected_symptoms, mode)
 
     mode_label = {
         "AND": "AND (Semua gejala harus terpenuhi)",
@@ -47,9 +55,9 @@ def hasil_diagnosa():
 
     return render_template(
         "result.html",
-        selected_symptoms=selected,
-        process_log=log_data["log"],
-        final_fault_detail=log_data["final_faults"],
+        selected_symptoms=result["facts_initial"],
+        process_log=result["log"],
+        final_fault_detail=result["final_faults"],
         mode=mode,
         mode_label=mode_label,
         SYMPTOMS=SYMPTOMS
