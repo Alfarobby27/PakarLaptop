@@ -1,0 +1,266 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="max-w-6xl mx-auto">
+  <!-- Header Section -->
+  <div class="mb-8 fade-in-up">
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <div>
+        <h3 class="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+          <i class="bi bi-list-task text-purple-400"></i>
+          Data Gejala Laptop
+        </h3>
+        <p class="text-slate-400">
+          Daftar lengkap gejala yang dapat didiagnosa
+        </p>
+      </div>
+      <div class="text-right">
+        <div class="text-2xl font-bold text-purple-400" id="totalGejala">
+          {{ symptoms|length }}
+        </div>
+        <div class="text-sm text-slate-400">Total Gejala</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search & Filter Section -->
+  <div
+    class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-700/50 p-6 mb-6 fade-in-up stagger-1"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Search Bar -->
+      <div>
+        <label class="block text-sm font-medium text-slate-300 mb-2">
+          <i class="bi bi-search"></i> Cari Gejala
+        </label>
+        <div class="relative">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Ketik untuk mencari gejala..."
+            class="bg-slate-700/50 border border-slate-600/50 text-slate-200 text-sm rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 block w-full pl-10 pr-10 py-2.5 transition-all"
+          />
+          <i
+            class="bi bi-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"
+          ></i>
+          <button
+            id="clearSearch"
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-purple-400 transition-colors hidden"
+          >
+            <i class="bi bi-x-circle-fill"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sort Options -->
+      <div>
+        <label class="block text-sm font-medium text-slate-300 mb-2">
+          <i class="bi bi-sort-down"></i> Urutkan
+        </label>
+        <select
+          id="sortSelect"
+          class="bg-slate-700/50 border border-slate-600/50 text-slate-200 text-sm rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 block w-full px-4 py-2.5 transition-all"
+        >
+          <option value="default">Default (Kode)</option>
+          <option value="name-asc">Nama (A-Z)</option>
+          <option value="name-desc">Nama (Z-A)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Results Info -->
+    <div class="mt-4 flex items-center justify-between text-sm">
+      <span class="text-slate-400">
+        Menampilkan
+        <span id="visibleCount" class="font-semibold text-purple-400"
+          >{{ symptoms|length }}</span
+        >
+        dari {{ symptoms|length }} gejala
+      </span>
+      <button
+        id="resetFilters"
+        class="text-purple-400 hover:text-purple-300 transition-colors hidden"
+      >
+        <i class="bi bi-arrow-counterclockwise"></i> Reset
+      </button>
+    </div>
+  </div>
+
+  <!-- Table Section -->
+  <div
+    class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-700/50 overflow-hidden fade-in-up stagger-2"
+  >
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b border-slate-700/50 bg-slate-800/50">
+            <th
+              class="px-6 py-4 text-left text-sm font-semibold text-slate-300 w-32"
+            >
+              Kode
+            </th>
+            <th
+              class="px-6 py-4 text-left text-sm font-semibold text-slate-300"
+            >
+              Nama Gejala
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-slate-700/30" id="symptomTableBody">
+          {% for code, name in symptoms.items() %}
+          <tr
+            class="symptom-row hover:bg-slate-800/30 transition-all duration-200 hover:scale-[1.01] cursor-pointer"
+            data-code="{{ code }}"
+            data-name="{{ name }}"
+          >
+            <td class="px-6 py-4">
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20"
+              >
+                {{ code }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-slate-200 symptom-name">{{ name }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- No Results Message -->
+  <div id="noResults" class="hidden mt-8 text-center py-12 fade-in-up">
+    <div
+      class="w-20 h-20 rounded-full bg-slate-800 flex items-center justify-center mx-auto mb-4"
+    >
+      <i class="bi bi-search text-4xl text-slate-500"></i>
+    </div>
+    <p class="text-slate-400 text-lg mb-2">Tidak ada gejala yang cocok</p>
+    <p class="text-slate-500 text-sm">Coba gunakan kata kunci yang berbeda</p>
+  </div>
+
+  <!-- Back Button -->
+  <div class="mt-8 fade-in-up stagger-3">
+    <a
+      href="/"
+      class="inline-flex items-center gap-2 px-8 py-3 bg-slate-700/50 hover:bg-slate-700 text-slate-200 font-medium rounded-lg border border-slate-600/50 transition-all duration-300 hover:-translate-x-1"
+    >
+      <i class="bi bi-arrow-left"></i>
+      Kembali
+    </a>
+  </div>
+</div>
+
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const clearSearchBtn = document.getElementById("clearSearch");
+  const sortSelect = document.getElementById("sortSelect");
+  const resetFiltersBtn = document.getElementById("resetFilters");
+  const symptomTableBody = document.getElementById("symptomTableBody");
+  const noResults = document.getElementById("noResults");
+  const visibleCount = document.getElementById("visibleCount");
+
+  let allRows = Array.from(document.querySelectorAll(".symptom-row"));
+
+  /* ================= FILTER ================= */
+  function filterSymptoms() {
+    const term = searchInput.value.toLowerCase().trim();
+    let visible = 0;
+
+    allRows.forEach((row) => {
+      const code = row.dataset.code.toLowerCase();
+      const name = row.dataset.name.toLowerCase();
+      const nameCell = row.querySelector(".symptom-name");
+
+      // reset text dulu (PENTING)
+      nameCell.textContent = row.dataset.name;
+
+      const match = code.includes(term) || name.includes(term);
+
+      row.style.display = match ? "" : "none";
+
+      if (match) {
+        visible++;
+        if (term) highlight(nameCell, row.dataset.name, term);
+      }
+    });
+
+    updateUI(visible);
+
+    clearSearchBtn.classList.toggle("hidden", !term);
+    resetFiltersBtn.classList.toggle(
+      "hidden",
+      !term && sortSelect.value === "default",
+    );
+  }
+
+  /* ================= SORT ================= */
+  function sortSymptoms() {
+    const mode = sortSelect.value;
+
+    allRows.sort((a, b) => {
+      if (mode === "name-asc")
+        return a.dataset.name.localeCompare(b.dataset.name);
+      if (mode === "name-desc")
+        return b.dataset.name.localeCompare(a.dataset.name);
+      return a.dataset.code.localeCompare(b.dataset.code);
+    });
+
+    allRows.forEach((row) => symptomTableBody.appendChild(row));
+    filterSymptoms();
+  }
+
+  /* ================= UI ================= */
+  function updateUI(visible) {
+    visibleCount.textContent = visible;
+
+    if (visible === 0) {
+      noResults.classList.remove("hidden");
+      symptomTableBody.closest("div").style.opacity = "0.3";
+    } else {
+      noResults.classList.add("hidden");
+      symptomTableBody.closest("div").style.opacity = "1";
+    }
+  }
+
+  /* ================= HELPERS ================= */
+  function highlight(el, text, term) {
+    el.innerHTML = text.replace(
+      new RegExp(`(${term})`, "gi"),
+      `<mark class="bg-purple-400/30 text-purple-300 px-1 rounded">$1</mark>`,
+    );
+  }
+
+  /* ================= RESET ================= */
+  function clearSearch() {
+    searchInput.value = "";
+    filterSymptoms();
+  }
+
+  function resetFilters() {
+    searchInput.value = "";
+    sortSelect.value = "default";
+    sortSymptoms();
+    filterSymptoms();
+  }
+
+  /* ================= EVENTS ================= */
+  searchInput.addEventListener("input", filterSymptoms);
+  clearSearchBtn.addEventListener("click", clearSearch);
+  sortSelect.addEventListener("change", sortSymptoms);
+  resetFiltersBtn.addEventListener("click", resetFilters);
+
+  /* ================= SHORTCUTS ================= */
+  document.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+      e.preventDefault();
+      searchInput.focus();
+    }
+    if (e.key === "Escape") clearSearch();
+  });
+
+  // init
+  filterSymptoms();
+</script>
+
+{% endblock %}

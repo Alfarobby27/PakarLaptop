@@ -1,0 +1,309 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="max-w-5xl mx-auto">
+  <!-- Header Section -->
+  <div class="mb-8 fade-in-up">
+    <h3 class="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+      <i class="bi bi-laptop text-emerald-400"></i>
+      Tentang PakarLaptop
+    </h3>
+  </div>
+
+  <!-- Main Content Card -->
+  <div
+    class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-700/50 p-8 mb-6 fade-in-up stagger-1"
+  >
+    <!-- Deskripsi Sistem -->
+    <div class="mb-8">
+      <h5 class="text-xl font-semibold text-white mb-3 flex items-center gap-2">
+        <div
+          class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center"
+        >
+          <i class="bi bi-pin-angle text-blue-400"></i>
+        </div>
+        Deskripsi Sistem
+      </h5>
+      <p class="text-slate-300 leading-relaxed">
+        Sistem pakar ini dirancang untuk mendiagnosa kerusakan laptop
+        berdasarkan gejala yang dialami pengguna. Sistem menggunakan metode
+        <span class="font-semibold text-blue-400">Forward Chaining</span>, yaitu
+        teknik inferensi yang bekerja dari gejala menuju kesimpulan (rule) untuk
+        menemukan jenis kerusakan yang tepat.
+      </p>
+    </div>
+
+    <div class="border-t border-slate-700/50 my-8"></div>
+
+    <!-- Accordion Section -->
+    <div class="space-y-4">
+      <!-- Accordion 1: Metode Forward Chaining -->
+      <div
+        class="accordion-item border border-slate-700/50 rounded-xl overflow-hidden"
+      >
+        <button
+          class="accordion-header w-full px-6 py-4 bg-slate-800/50 hover:bg-slate-800 transition-all duration-300 flex items-center justify-between group"
+          data-target="accordion1"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition-colors"
+            >
+              <i class="bi bi-arrow-right-square text-xl text-purple-400"></i>
+            </div>
+            <span class="text-lg font-semibold text-white"
+              >Metode Forward Chaining</span
+            >
+          </div>
+          <i
+            class="bi bi-chevron-down text-slate-400 transition-transform duration-300 accordion-icon"
+          ></i>
+        </button>
+        <div
+          id="accordion1"
+          class="accordion-content max-h-0 overflow-hidden transition-all duration-300"
+        >
+          <div class="px-6 py-4 bg-slate-900/50">
+            <p class="text-slate-300 leading-relaxed mb-4">
+              Forward chaining adalah metode inferensi yang dimulai dari fakta
+              (gejala yang ada) untuk menelusuri rule (aturan) hingga
+              menghasilkan kesimpulan. Sistem akan mencocokkan gejala pengguna
+              dengan basis pengetahuan untuk menemukan kerusakan laptop yang
+              paling mungkin.
+            </p>
+            <ul class="list-disc pl-6 text-slate-300">
+              <li>Mengumpulkan gejala yang dipilih pengguna</li>
+              <li>
+                Mencocokkan dengan aturan (IF-THEN) dalam basis pengetahuan
+              </li>
+              <li>Menghasilkan diagnosa berdasarkan aturan yang terpenuhi</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion 2: Cara Kerja Sistem -->
+      <div
+        class="accordion-item border border-slate-700/50 rounded-xl overflow-hidden"
+      >
+        <button
+          class="accordion-header w-full px-6 py-4 bg-slate-800/50 hover:bg-slate-800 transition-all duration-300 flex items-center justify-between group"
+          data-target="accordion2"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/30 transition-colors"
+            >
+              <i class="bi bi-gear text-xl text-blue-400"></i>
+            </div>
+            <span class="text-lg font-semibold text-white"
+              >Cara Kerja Sistem</span
+            >
+          </div>
+          <i
+            class="bi bi-chevron-down text-slate-400 transition-transform duration-300 accordion-icon"
+          ></i>
+        </button>
+        <div
+          id="accordion2"
+          class="accordion-content max-h-0 overflow-hidden transition-all duration-300"
+        >
+          <div class="px-6 py-4 bg-slate-900/50">
+            <div class="space-y-4">
+              <div class="flex gap-4">
+                <div class="flex-shrink-0">
+                  <div
+                    class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm"
+                  >
+                    1
+                  </div>
+                </div>
+                <div>
+                  <h6 class="font-semibold text-white mb-1">Input Gejala</h6>
+                  <p class="text-sm text-slate-400">
+                    Pengguna memilih gejala yang dialami laptop.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div class="flex-shrink-0">
+                  <div
+                    class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm"
+                  >
+                    2
+                  </div>
+                </div>
+                <div>
+                  <h6 class="font-semibold text-white mb-1">
+                    Pencocokan Aturan
+                  </h6>
+                  <p class="text-sm text-slate-400">
+                    Sistem mencocokkan gejala dengan aturan IF-THEN dalam basis
+                    pengetahuan.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div class="flex-shrink-0">
+                  <div
+                    class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm"
+                  >
+                    3
+                  </div>
+                </div>
+                <div>
+                  <h6 class="font-semibold text-white mb-1">
+                    Inferensi Forward Chaining
+                  </h6>
+                  <p class="text-sm text-slate-400">
+                    Sistem menelusuri aturan yang sesuai untuk menentukan
+                    kemungkinan kerusakan.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div class="flex-shrink-0">
+                  <div
+                    class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm"
+                  >
+                    4
+                  </div>
+                </div>
+                <div>
+                  <h6 class="font-semibold text-white mb-1">Hasil Diagnosa</h6>
+                  <p class="text-sm text-slate-400">
+                    Menampilkan kerusakan laptop yang paling mungkin beserta
+                    rekomendasi perbaikan.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion 3: Anggota Kelompok -->
+      <div
+        class="accordion-item border border-slate-700/50 rounded-xl overflow-hidden"
+      >
+        <button
+          class="accordion-header w-full px-6 py-4 bg-slate-800/50 hover:bg-slate-800 transition-all duration-300 flex items-center justify-between group"
+          data-target="accordion3"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500/30 transition-colors"
+            >
+              <i class="bi bi-people text-xl text-emerald-400"></i>
+            </div>
+            <span class="text-lg font-semibold text-white"
+              >Anggota Kelompok 2</span
+            >
+          </div>
+          <i
+            class="bi bi-chevron-down text-slate-400 transition-transform duration-300 accordion-icon"
+          ></i>
+        </button>
+
+        <div
+          id="accordion3"
+          class="accordion-content max-h-0 overflow-hidden transition-all duration-300"
+        >
+          <div class="px-6 py-4 bg-slate-900/50 overflow-x-auto">
+            <table
+              class="min-w-full text-left text-sm text-slate-300 border-collapse"
+            >
+              <thead>
+                <tr class="border-b border-slate-700/50">
+                  <th class="px-4 py-2 font-semibold text-white">Nama</th>
+                  <th class="px-4 py-2 font-semibold text-white">NPM</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="hover:bg-slate-800/50">
+                  <td class="px-4 py-2">Muhamad Suhada</td>
+                  <td class="px-4 py-2">202243500496</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                  <td class="px-4 py-2">Alfarobby</td>
+                  <td class="px-4 py-2">202243500497</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                  <td class="px-4 py-2">Ahmad Badawi</td>
+                  <td class="px-4 py-2">202243500500</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                  <td class="px-4 py-2">Abdur Rosyid Fachriansyah</td>
+                  <td class="px-4 py-2">202243500501</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                  <td class="px-4 py-2">Sangga Buana</td>
+                  <td class="px-4 py-2">202243500502</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                  <td class="px-4 py-2">Novia Citra Sholihah</td>
+                  <td class="px-4 py-2">202243500540</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                  <td class="px-4 py-2">Rani Stevidayanti</td>
+                  <td class="px-4 py-2">202243500503</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                  <td class="px-4 py-2">Raditha Andaliaripa</td>
+                  <td class="px-4 py-2">202243500538</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back Button -->
+      <div class="fade-in-up stagger-2">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 px-8 py-3 bg-slate-700/50 hover:bg-slate-700 text-slate-200 font-medium rounded-lg border border-slate-600/50 transition-all duration-300 hover:-translate-x-1"
+        >
+          <i class="bi bi-arrow-left"></i>
+          Kembali
+        </a>
+      </div>
+    </div>
+
+    <script>
+      // Accordion functionality
+      const accordionHeaders = document.querySelectorAll(".accordion-header");
+
+      accordionHeaders.forEach((header) => {
+        header.addEventListener("click", function () {
+          const targetId = this.getAttribute("data-target");
+          const content = document.getElementById(targetId);
+          const icon = this.querySelector(".accordion-icon");
+          const allContents = document.querySelectorAll(".accordion-content");
+          const allIcons = document.querySelectorAll(".accordion-icon");
+
+          allContents.forEach((c) => {
+            if (c.id !== targetId) c.style.maxHeight = "0";
+          });
+
+          allIcons.forEach((i) => {
+            if (i !== icon) i.style.transform = "rotate(0deg)";
+          });
+
+          if (content.style.maxHeight && content.style.maxHeight !== "0px") {
+            content.style.maxHeight = "0";
+            icon.style.transform = "rotate(0deg)";
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            icon.style.transform = "rotate(180deg)";
+          }
+        });
+      });
+
+      setTimeout(() => {
+        accordionHeaders[0].click();
+      }, 500);
+    </script>
+
+    {% endblock %}
+  </div>
+</div>

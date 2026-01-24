@@ -1,0 +1,205 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="max-w-6xl mx-auto space-y-10">
+  <!-- ================= HEADER ================= -->
+  <div class="text-center">
+    <h3 class="text-4xl font-bold text-white mb-2">
+      Form Diagnosa Kerusakan Laptop
+    </h3>
+    <p class="text-slate-400">
+      Pilih gejala secara manual atau gunakan aturan (rule) untuk diagnosa cepat
+    </p>
+  </div>
+
+  <!-- ================= MODE DIAGNOSA ================= -->
+  <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6">
+    <h4 class="text-xl font-semibold text-white mb-4">⚙️ Mode Diagnosa</h4>
+
+    <div class="flex gap-6">
+      <label class="flex items-center gap-3 cursor-pointer">
+        <input
+          type="radio"
+          name="mode"
+          value="AND"
+          form="diagnoseForm"
+          checked
+          class="w-5 h-5 accent-blue-500"
+        />
+        <span class="text-slate-200"> AND (Semua gejala harus terpenuhi) </span>
+      </label>
+
+      <label class="flex items-center gap-3 cursor-pointer">
+        <input
+          type="radio"
+          name="mode"
+          value="OR"
+          form="diagnoseForm"
+          class="w-5 h-5 accent-blue-500"
+        />
+        <span class="text-slate-200"> OR (Salah satu gejala terpenuhi) </span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ================= RULE SELECTOR ================= -->
+  <div class="bg-slate-800/70 border border-slate-700 rounded-2xl p-6">
+    <h4 class="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+      🔍 Pilih Berdasarkan Aturan
+    </h4>
+
+    {% set rules = { "R1": "G1,G2,G3,G6", "R2": "G4", "R3": "G5", "R4": "G7,G8",
+    "R5": "G9", "R6": "G10", "R7": "G11" } %}
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {% for r, g in rules.items() %}
+      <button
+        type="button"
+        data-symptoms="{{ g }}"
+        class="rule-btn rounded-xl border border-slate-600 p-4 bg-slate-900 text-slate-200 hover:bg-blue-600/20 transition-all"
+      >
+        <div class="flex items-center justify-between">
+          <span class="text-xl font-bold">{{ r }}</span>
+          <span class="text-xs px-2 py-1 rounded-full bg-slate-700">
+            Rule
+          </span>
+        </div>
+        <p class="text-xs text-slate-400 mt-2">Pilih otomatis gejala</p>
+      </button>
+      {% endfor %}
+
+      <!-- RESET -->
+      <button
+        type="button"
+        id="resetBtn"
+        class="rounded-xl border border-red-500/40 p-4 bg-red-500/10 hover:bg-red-500/30 text-red-400 transition"
+      >
+        Reset
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= FORM ================= -->
+  <form method="POST" action="/hasil" id="diagnoseForm">
+    <div
+      class="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden"
+    >
+      <table class="w-full">
+        <thead class="bg-slate-900">
+          <tr>
+            <th class="px-6 py-4 text-slate-300">Pilih</th>
+            <th class="px-6 py-4 text-slate-300">Kode</th>
+            <th class="px-6 py-4 text-slate-300">Gejala</th>
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-slate-700">
+          {% for code, name in symptoms.items() %}
+          <tr class="symptom-row hover:bg-slate-700/50 transition">
+            <td class="px-6 py-4 text-center">
+              <input
+                type="checkbox"
+                name="symptoms"
+                value="{{ code }}"
+                class="symptom-checkbox w-5 h-5 accent-blue-500"
+              />
+            </td>
+            <td class="px-6 py-4">
+              <span
+                class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm"
+              >
+                {{ code }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-slate-200">{{ name }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- WARNING -->
+    <div
+      id="warningMessage"
+      class="hidden mt-6 bg-amber-900/20 border border-amber-500/30 rounded-xl p-4"
+    >
+      <p class="text-amber-400 font-medium">
+        ⚠ Pilih minimal satu gejala untuk melanjutkan diagnosa.
+      </p>
+    </div>
+
+    <!-- ACTION -->
+    <div class="flex gap-4 mt-8 justify-center">
+      <button
+        type="submit"
+        class="px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-semibold rounded-xl shadow-lg transition"
+      >
+        Proses Diagnosa
+      </button>
+
+      <a
+        href="/"
+        class="px-10 py-4 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl"
+      >
+        Kembali
+      </a>
+    </div>
+  </form>
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+  const ruleButtons = document.querySelectorAll(".rule-btn");
+  const checkboxes = document.querySelectorAll(".symptom-checkbox");
+  const rows = document.querySelectorAll(".symptom-row");
+  const resetBtn = document.getElementById("resetBtn");
+
+  // Highlight row
+  checkboxes.forEach((cb, idx) => {
+    cb.addEventListener("change", () => {
+      rows[idx].classList.toggle("bg-blue-600/10", cb.checked);
+    });
+  });
+
+  // Rule selection
+  ruleButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      ruleButtons.forEach((b) =>
+        b.classList.remove("ring-2", "ring-blue-500", "bg-blue-600/20"),
+      );
+
+      btn.classList.add("ring-2", "ring-blue-500", "bg-blue-600/20");
+
+      const symptoms = btn.dataset.symptoms.split(",");
+
+      checkboxes.forEach((cb) => {
+        cb.checked = symptoms.includes(cb.value);
+        cb.dispatchEvent(new Event("change"));
+      });
+    });
+  });
+
+  // Reset
+  resetBtn.addEventListener("click", () => {
+    ruleButtons.forEach((b) =>
+      b.classList.remove("ring-2", "ring-blue-500", "bg-blue-600/20"),
+    );
+    checkboxes.forEach((cb) => {
+      cb.checked = false;
+      cb.dispatchEvent(new Event("change"));
+    });
+  });
+
+  // Validation
+  const form = document.getElementById("diagnoseForm");
+  const warning = document.getElementById("warningMessage");
+
+  form.addEventListener("submit", (e) => {
+    if (![...checkboxes].some((cb) => cb.checked)) {
+      e.preventDefault();
+      warning.classList.remove("hidden");
+      warning.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+</script>
+
+{% endblock %}

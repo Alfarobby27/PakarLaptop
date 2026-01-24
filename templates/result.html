@@ -1,0 +1,149 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="max-w-6xl mx-auto space-y-8">
+  <!-- ================= HEADER ================= -->
+  <div>
+    <h3 class="text-3xl font-bold text-white mb-2">Proses Forward Chaining</h3>
+    <p class="text-slate-400">
+      Menampilkan proses penalaran sistem pakar berdasarkan fakta dan aturan
+    </p>
+  </div>
+
+  <!-- ================= INFO AWAL ================= -->
+  <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 space-y-2">
+    <p class="text-slate-300">
+      <strong>Mode Diagnosa:</strong>
+      <span class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400">
+        {{ mode_label }}
+      </span>
+    </p>
+
+    <p class="text-slate-300">
+      <strong>Fakta Awal (Kode):</strong>
+      {{ selected_symptoms | join(", ") }}
+    </p>
+
+    <p class="text-slate-400">
+      <strong>Fakta Awal (Gejala):</strong>
+      {% for g in selected_symptoms %} {{ SYMPTOMS[g] }}{% if not loop.last %},
+      {% endif %} {% endfor %}
+    </p>
+  </div>
+
+  <!-- ================= PROSES INFERENSI ================= -->
+  <div class="bg-slate-800 border border-slate-700 rounded-xl p-6">
+    <h4 class="text-xl font-semibold text-white mb-6">🔄 Tahapan Inferensi</h4>
+
+    <ul class="space-y-6">
+      {% for step in process_log %}
+      <li
+        class="relative pl-6 border-l-4 {% if step.status %} border-emerald-500 {% else %} border-red-500 {% endif %}"
+      >
+        <!-- STEP HEADER -->
+        <div class="flex flex-wrap items-center gap-3 mb-2">
+          <span
+            class="px-3 py-1 rounded-full bg-slate-700 text-slate-200 text-sm"
+          >
+            Step {{ step.step }}
+          </span>
+
+          <span
+            class="px-3 py-1 rounded-full bg-slate-700 text-slate-200 text-sm"
+          >
+            Rule {{ step.rule }}
+          </span>
+
+          {% if step.status %}
+          <span
+            class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-semibold"
+          >
+            TRUE
+          </span>
+          {% else %}
+          <span
+            class="px-3 py-1 rounded-full bg-red-500/20 text-red-400 text-sm font-semibold"
+          >
+            FALSE
+          </span>
+          {% endif %}
+        </div>
+
+        <!-- IF -->
+        <p class="text-slate-300">
+          <strong>IF ({{ mode }}):</strong>
+          {% for c in step.if_condition %}
+          <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-400 text-sm">
+            {{ c }}
+          </span>
+          {% if not loop.last %}
+          <span class="text-slate-400 mx-1">{{ mode }}</span>
+          {% endif %} {% endfor %}
+        </p>
+
+        <!-- THEN -->
+        <p class="text-slate-300 mt-1">
+          <strong>THEN:</strong>
+          <span
+            class="px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 text-sm"
+          >
+            {{ step.then_code }}
+          </span>
+          — {{ step.then_name }}
+        </p>
+
+        <!-- FAKTA -->
+        <div class="grid md:grid-cols-2 gap-4 mt-3 text-sm">
+          <div class="bg-slate-900 rounded-lg p-3">
+            <p class="text-slate-400 font-medium mb-1">Fakta Sebelum</p>
+            <p class="text-slate-300">{{ step.facts_before | join(", ") }}</p>
+          </div>
+
+          <div class="bg-slate-900 rounded-lg p-3">
+            <p class="text-slate-400 font-medium mb-1">Fakta Sesudah</p>
+            <p class="text-slate-300">{{ step.facts_after | join(", ") }}</p>
+          </div>
+        </div>
+
+        {% if not step.status %}
+        <p class="text-red-400 text-sm mt-3 italic">
+          Rule tidak terpenuhi, sistem melanjutkan ke rule berikutnya.
+        </p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- ================= KESIMPULAN ================= -->
+  <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-6">
+    <h4 class="text-xl font-bold text-white mb-4">✅ Kesimpulan Akhir</h4>
+
+    {% if final_fault_detail %} {% for fault in final_fault_detail %}
+    <div class="mb-6">
+      <p class="text-emerald-400 font-bold text-lg">
+        {{ fault.code }} — {{ fault.name }}
+      </p>
+      <p class="text-slate-300 mt-2">
+        <strong>Solusi:</strong><br />
+        {{ fault.solution }}
+      </p>
+    </div>
+    {% endfor %} {% else %}
+    <p class="text-slate-300 italic">
+      Tidak ditemukan kesimpulan berdasarkan fakta yang diberikan.
+    </p>
+    {% endif %}
+  </div>
+
+  <!-- ================= ACTION ================= -->
+  <div class="flex justify-center">
+    <a
+      href="/diagnose-start"
+      class="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow transition"
+    >
+      Kembali ke Diagnosa
+    </a>
+  </div>
+</div>
+
+{% endblock %}
