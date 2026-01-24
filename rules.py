@@ -47,7 +47,7 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
     used_rules = set()
 
     while True:
-        new_fact_added = False  # Track apakah ada fakta baru di loop ini
+        new_facts = set()  # Fakta baru yang muncul di iterasi ini
 
         for conclusion in sorted(RULES.keys()):
             if conclusion in used_rules:
@@ -62,13 +62,10 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
                 satisfied = any(c in facts for c in conditions)
 
             if satisfied:
-                # Hanya catat fakta baru
                 if conclusion not in facts:
-                    facts.add(conclusion)
-                    new_fact_added = True
+                    new_facts.add(conclusion)  # Tambahkan ke new_facts
 
                 used_rules.add(conclusion)
-
                 log.append({
                     "step": step,
                     "rule": conclusion,
@@ -78,8 +75,8 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
                     "then_code": conclusion,
                     "then_name": FAULTS[conclusion]["name"],
                     "facts_before": facts_before,
-                    "facts_after": sorted(facts),
-                    "new_fact_added": new_fact_added
+                    "facts_after": sorted(facts | new_facts),
+                    "new_fact_added": conclusion not in facts
                 })
                 step += 1
             else:
@@ -97,9 +94,10 @@ def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[st
                 })
                 step += 1
 
-        # Hentikan loop jika **tidak ada fakta baru** yang ditambahkan
-        if not new_fact_added:
+        if not new_facts:  # Tidak ada fakta baru di iterasi ini → berhenti
             break
+
+        facts |= new_facts  # Tambahkan semua fakta baru ke facts
 
     final_faults = [
         {"code": f, "name": FAULTS[f]["name"], "solution": FAULTS[f]["solution"]}
