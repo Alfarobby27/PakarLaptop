@@ -3,7 +3,6 @@ from typing import List, Dict, Any
 # ============================
 # DATA KERUSAKAN
 # ============================
-
 FAULTS = {
     "K1": {"name": "Kerusakan kabel fleksibel LCD", "solution": "Memeriksa dan membersihkan kabel fleksibel LCD yang terhubung ke panel LCD dan mainboard. Apabila kondisi tidak berubah, dilakukan penggantian kabel fleksibel LCD."},
     "K2": {"name": "Kerusakan prosesor", "solution": "Melepas prosesor dari soket, membersihkan bagian prosesor dan soketnya, kemudian memasang kembali. Jika laptop tetap tidak menyala, kemungkinan terjadi kerusakan pada mainboard."},
@@ -18,7 +17,6 @@ FAULTS = {
 # ============================
 # DATA GEJALA
 # ============================
-
 SYMPTOMS = {
     "G1": "Layar laptop menampilkan warna putih",
     "G2": "Tampilan gambar bergetar",
@@ -36,7 +34,6 @@ SYMPTOMS = {
 # ============================
 # RULE BASE
 # ============================
-
 RULES = {
     "K1": ["G1", "G2", "G3", "G6"],
     "K2": ["G4"],
@@ -48,27 +45,25 @@ RULES = {
 }
 
 # ============================
-# FORWARD CHAINING
+# FORWARD CHAINING OPTIMAL
 # ============================
-
 def forward_chaining(
     selected_symptoms: List[str],
     mode: str = "AND"
 ) -> Dict[str, Any]:
 
-    # Normalisasi mode
     mode = mode.upper()
     if mode not in ("AND", "OR"):
         mode = "AND"
 
-    # Normalisasi fakta awal (hilangkan duplikasi)
+    # Hilangkan duplikasi fakta awal
     selected_symptoms = list(dict.fromkeys(selected_symptoms))
-
     facts = set(selected_symptoms)
     log = []
     step = 1
     used_rules = set()
 
+    # Loop inferensi
     while True:
         rule_applied = False
 
@@ -102,7 +97,6 @@ def forward_chaining(
                     "facts_before": facts_before,
                     "facts_after": sorted(facts)
                 })
-
                 step += 1
                 break
             else:
@@ -119,7 +113,12 @@ def forward_chaining(
                 })
                 step += 1
 
+        # Hentikan jika tidak ada rule baru yang diterapkan
         if not rule_applied:
+            break
+
+        # Hentikan jika semua fakta awal sudah terpenuhi
+        if all(symptom in facts for symptom in selected_symptoms):
             break
 
     final_faults = [
