@@ -1,7 +1,16 @@
+import sys
+import os
+
+# supaya rules.py terbaca
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
 from flask import Flask, render_template, request
 from rules import SYMPTOMS, FAULTS, forward_chaining
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    template_folder="../templates"
+)
 
 @app.route("/")
 def index():
@@ -45,4 +54,5 @@ def hasil_diagnosa():
         SYMPTOMS=SYMPTOMS
     )
 
+# WAJIB untuk Vercel
 app = app
