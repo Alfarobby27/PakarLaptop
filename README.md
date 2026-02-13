@@ -164,7 +164,7 @@ Basis pengetahuan sistem disusun berdasarkan referensi teknisi laptop profesiona
 
 <p align="center">
   <!-- Gambar lokal -->
-  <img src="laporan_project_sbp/pakarlaptop.png" alt="Demo PakarLaptop" width="600"/>
+  <img src="laporan_project_sbp/pakarlaptop.png" alt="Demo PakarLaptop" style="width:100%; max-width:1280px; height:auto;"/>
 </p>
 
 <p align="center">
