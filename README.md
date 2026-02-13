@@ -21,17 +21,17 @@
 
 ---
 
-## 📖 Deskripsi
+# 📖 Deskripsi
 
 Aplikasi web **Sistem Pakar Diagnosa Laptop** berbasis **Forward Chaining**  
 yang membantu pengguna mengidentifikasi kerusakan laptop berdasarkan gejala yang dipilih.
 
-Sistem ini dibangun menggunakan arsitektur web sederhana berbasis **Flask**,  
-dengan mesin inferensi rule-based untuk menghasilkan diagnosa dan solusi secara sistematis.
+Sistem dibangun menggunakan **Flask Framework** dengan mesin inferensi rule-based  
+untuk menghasilkan diagnosa dan solusi secara sistematis.
 
 ---
 
-## ⚙️ Cara Menjalankan Secara Lokal
+# ⚙️ Cara Menjalankan Secara Lokal
 
 ```bash
 # Clone repository
@@ -72,22 +72,31 @@ http://127.0.0.1:5000
 
 # 🛠️ Teknologi yang Digunakan
 
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=python,flask,html,css,tailwind,vercel&perline=6" />
-</p>
+<p align="center"> <table> <tr> <td align="center" width="180"> <a href="https://www.python.org/" target="_blank"> <img src="https://skillicons.dev/icons?i=python" width="65"/> <br><br> <b>Python 3.9+</b> </a>
 
-### 🔹 Backend
-- **Python 3.9+**
-- **Flask 2.2**
-- Rule-Based System (Forward Chaining)
+Backend Engine & Logic Processing
 
-### 🔹 Frontend
-- HTML5
-- CSS3
-- Tailwind CSS
+</td> <td align="center" width="180"> <a href="https://flask.palletsprojects.com/" target="_blank"> <img src="https://skillicons.dev/icons?i=flask" width="65"/> <br><br> <b>Flask 2.2</b> </a>
 
-### 🔹 Deployment
-- Vercel Cloud Platform
+Web Framework
+
+</td> <td align="center" width="180"> <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank"> <img src="https://skillicons.dev/icons?i=html" width="65"/> <br><br> <b>HTML5</b> </a>
+
+Structure Layout
+
+</td> </tr> <tr> <td align="center" width="180"> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank"> <img src="https://skillicons.dev/icons?i=css" width="65"/> <br><br> <b>CSS3</b> </a>
+
+Styling & UI
+
+</td> <td align="center" width="180"> <a href="https://tailwindcss.com/" target="_blank"> <img src="https://skillicons.dev/icons?i=tailwind" width="65"/> <br><br> <b>Tailwind CSS</b> </a>
+
+Utility-First Framework
+
+</td> <td align="center" width="180"> <a href="https://vercel.com/" target="_blank"> <img src="https://skillicons.dev/icons?i=vercel" width="65"/> <br><br> <b>Vercel</b> </a>
+
+Cloud Deployment
+
+</td> </tr> </table> </p>
 
 ---
 
