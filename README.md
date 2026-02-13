@@ -13,6 +13,7 @@
   <img src="https://img.shields.io/github/stars/Alfarobby27/PakarLaptop?style=for-the-badge&logo=github&color=yellow">
   <img src="https://img.shields.io/github/forks/Alfarobby27/PakarLaptop?style=for-the-badge&logo=github&color=blue">
 </p>
+
 ---
 
 # 📖 Deskripsi
@@ -66,75 +67,48 @@ http://127.0.0.1:5000
 
 # 🛠️ Teknologi yang Digunakan
 
-<div align="center">
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0A66C2,100:1E90FF&height=2&section=header"/>
+</p>
 
-<table>
-<tr>
-<td align="center" width="180">
-<a href="https://www.python.org/" target="_blank">
-<img src="https://skillicons.dev/icons?i=python" width="65"/>
-<br><br>
-<b>Python 3.9+</b>
-</a>
-<br><br>
-Backend Engine & Logic Processing
-</td>
+<p align="center">
+  <a href="https://www.python.org/" target="_blank">
+    <img src="https://skillicons.dev/icons?i=python" height="60" />
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://flask.palletsprojects.com/" target="_blank">
+    <img src="https://skillicons.dev/icons?i=flask" height="60" />
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">
+    <img src="https://skillicons.dev/icons?i=html" height="60" />
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">
+    <img src="https://skillicons.dev/icons?i=css" height="60" />
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://tailwindcss.com/" target="_blank">
+    <img src="https://skillicons.dev/icons?i=tailwind" height="60" />
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://vercel.com/" target="_blank">
+    <img src="https://skillicons.dev/icons?i=vercel" height="60" />
+  </a>
+</p>
 
-<td align="center" width="180">
-<a href="https://flask.palletsprojects.com/" target="_blank">
-<img src="https://skillicons.dev/icons?i=flask" width="65"/>
-<br><br>
-<b>Flask 2.2</b>
-</a>
-<br><br>
-Web Framework
-</td>
+<br>
 
-<td align="center" width="180">
-<a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">
-<img src="https://skillicons.dev/icons?i=html" width="65"/>
-<br><br>
-<b>HTML5</b>
-</a>
-<br><br>
-Structure Layout
-</td>
-</tr>
-
-<tr>
-<td align="center" width="180">
-<a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">
-<img src="https://skillicons.dev/icons?i=css" width="65"/>
-<br><br>
-<b>CSS3</b>
-</a>
-<br><br>
-Styling & UI
-</td>
-
-<td align="center" width="180">
-<a href="https://tailwindcss.com/" target="_blank">
-<img src="https://skillicons.dev/icons?i=tailwind" width="65"/>
-<br><br>
-<b>Tailwind CSS</b>
-</a>
-<br><br>
-Utility-First Framework
-</td>
-
-<td align="center" width="180">
-<a href="https://vercel.com/" target="_blank">
-<img src="https://skillicons.dev/icons?i=vercel" width="65"/>
-<br><br>
-<b>Vercel</b>
-</a>
-<br><br>
-Cloud Deployment
-</td>
-</tr>
-</table>
-
-</div>>
+<p align="center">
+  <sub>
+    <b>Python 3.9+</b> • 
+    <b>Flask 2.2</b> • 
+    <b>HTML5</b> • 
+    <b>CSS3</b> • 
+    <b>Tailwind CSS</b> • 
+    <b>Vercel</b>
+  </sub>
+</p>
 
 ---
 
