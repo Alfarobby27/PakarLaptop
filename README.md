@@ -1,16 +1,34 @@
 <!-- ================= HEADER ANIMATION ================= -->
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0A66C2,100:1E90FF&height=180&section=header&text=PakarLaptop&fontSize=40&fontColor=ffffff&animation=fadeIn&fontAlignY=35" />
+  <img src="https://capsule-render.vercel.app/api?type=venom&color=0:0A66C2,100:1E90FF&height=200&section=header&text=PakarLaptop&fontSize=45&fontColor=ffffff&animation=twinkling&fontAlignY=35" />
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=22&duration=3000&pause=1000&color=0A66C2&center=true&vCenter=true&width=600&lines=Sistem+Pakar+Diagnosa+Laptop;Metode+Forward+Chaining;Berbasis+Flask+%26+Python" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=22&duration=3000&pause=1000&color=0A66C2&center=true&vCenter=true&width=650&lines=Sistem+Pakar+Diagnosa+Laptop;Metode+Forward+Chaining;Berbasis+Flask+%26+Python;AI+Rule-Based+Inference+System" />
 </p>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=Alfarobby27&repo=PakarLaptop&label=Repository%20Visitors&color=0A66C2&style=for-the-badge" />
+  <img src="https://komarev.com/ghpvc/?username=Alfarobby27&repo=PakarLaptop&label=Repository%20Visitors&color=blueviolet&style=for-the-badge" />
+  <img src="https://img.shields.io/github/stars/Alfarobby27/PakarLaptop?style=for-the-badge&logo=github&color=yellow">
+  <img src="https://img.shields.io/github/forks/Alfarobby27/PakarLaptop?style=for-the-badge&logo=github&color=blue">
 </p>
+
+<!-- ================= HOVER EFFECT ================= -->
+
+<style>
+img {
+  transition: all 0.3s ease-in-out;
+}
+img:hover {
+  transform: scale(1.07);
+  filter: drop-shadow(0 0 10px rgba(10,102,194,0.6));
+}
+a img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 14px rgba(0,0,0,0.5));
+}
+</style>
 
 ---
 
@@ -40,22 +58,22 @@ Menggunakan metode **Forward Chaining** sebagai mesin inferensi untuk menghasilk
 
 <table align="center">
 <tr>
-<td align="center" width="200">
-<img src="https://skillicons.dev/icons?i=python" width="60"/><br>
+<td align="center" width="200" style="padding:15px;">
+<img src="https://skillicons.dev/icons?i=python" width="65"/><br>
 <b>Python</b><br>
 <sub>Versi 3.9+</sub><br>
 <sub>Bahasa utama pengembangan sistem pakar</sub>
 </td>
 
-<td align="center" width="200">
-<img src="https://skillicons.dev/icons?i=flask" width="60"/><br>
+<td align="center" width="200" style="padding:15px;">
+<img src="https://skillicons.dev/icons?i=flask" width="65"/><br>
 <b>Flask</b><br>
 <sub>Versi 2.x</sub><br>
 <sub>Web framework backend</sub>
 </td>
 
-<td align="center" width="200">
-<img src="https://skillicons.dev/icons?i=tailwind" width="60"/><br>
+<td align="center" width="200" style="padding:15px;">
+<img src="https://skillicons.dev/icons?i=tailwind" width="65"/><br>
 <b>Tailwind CSS</b><br>
 <sub>Versi 3.x</sub><br>
 <sub>Framework UI modern & responsif</sub>
@@ -63,22 +81,22 @@ Menggunakan metode **Forward Chaining** sebagai mesin inferensi untuk menghasilk
 </tr>
 
 <tr>
-<td align="center" width="200">
-<img src="https://skillicons.dev/icons?i=vercel" width="60"/><br>
+<td align="center" width="200" style="padding:15px;">
+<img src="https://skillicons.dev/icons?i=vercel" width="65"/><br>
 <b>Vercel</b><br>
 <sub>Cloud Deployment</sub><br>
 <sub>Hosting aplikasi web</sub>
 </td>
 
-<td align="center" width="200">
-<img src="https://skillicons.dev/icons?i=html" width="60"/><br>
+<td align="center" width="200" style="padding:15px;">
+<img src="https://skillicons.dev/icons?i=html" width="65"/><br>
 <b>HTML5</b><br>
 <sub>Markup Language</sub><br>
 <sub>Struktur halaman web</sub>
 </td>
 
-<td align="center" width="200">
-<img src="https://skillicons.dev/icons?i=css" width="60"/><br>
+<td align="center" width="200" style="padding:15px;">
+<img src="https://skillicons.dev/icons?i=css" width="65"/><br>
 <b>CSS3</b><br>
 <sub>Styling Engine</sub><br>
 <sub>Tampilan & layout</sub>
@@ -94,13 +112,13 @@ Basis pengetahuan sistem disusun berdasarkan referensi dari video teknisi laptop
 
 <p align="center">
   <a href="https://youtu.be/Wq_w8ZQ9PnQ" target="_blank">
-    <img src="https://img.youtube.com/vi/Wq_w8ZQ9PnQ/maxresdefault.jpg" width="600">
+    <img src="https://img.youtube.com/vi/Wq_w8ZQ9PnQ/maxresdefault.jpg" width="650">
   </a>
 </p>
 
 <p align="center">
   <a href="https://youtu.be/Wq_w8ZQ9PnQ" target="_blank">
-    <img src="https://img.shields.io/badge/▶️%20Watch%20Video-YouTube-red?style=for-the-badge&logo=youtube&logoColor=white">
+    <img src="https://img.shields.io/badge/▶%20Watch%20Video-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white&labelColor=000000">
   </a>
 </p>
 
@@ -112,12 +130,12 @@ Informasi dari video tersebut dianalisis dan direpresentasikan ke dalam bentuk a
 
 <p align="center">
   <a href="https://pakarlaptop.vercel.app" target="_blank">
-    <img src="https://img.shields.io/badge/🚀%20Live%20Demo-PakarLaptop-0A66C2?style=for-the-badge&logo=vercel&logoColor=white">
+    <img src="https://img.shields.io/badge/🚀%20Launch%20Live%20Demo-PakarLaptop-0A66C2?style=for-the-badge&logo=vercel&logoColor=white&labelColor=000000">
   </a>
 </p>
 
 ---
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0A66C2,100:1E90FF&height=120&section=footer"/>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:1E90FF,100:0A66C2&height=150&section=footer&animation=twinkling"/>
 </p>
