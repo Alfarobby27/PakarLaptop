@@ -1,10 +1,14 @@
 <!-- ================= HEADER ================= -->
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=venom&color=gradient&height=240&section=header&text=PakarLaptop&fontSize=54&fontColor=ffffff&animation=twinkling&fontAlignY=38" alt="PakarLaptop - Sistem Pakar Diagnosa Laptop" />
+  <img 
+    src="https://capsule-render.vercel.app/api?type=venom&color=0:0A66C2,100:1E90FF&height=240&section=header&text=PakarLaptop&fontSize=54&fontColor=ffffff&animation=twinkling&fontAlignY=38" 
+    alt="PakarLaptop - Sistem Pakar Diagnosa Laptop" 
+  />
 </p>
 
+
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=26&duration=4000&pause=800&color=1E90FF&center=true&vCenter=true&width=850&lines=Sistem+Pakar+Diagnosa+Kerusakan+Laptop;Menggunakan+Metode+Forward+Chaining;Berbasis+Flask+%2B+Python+%2B+Tailwind+CSS;Proyek+Kelompok+2+-+2024+%F0%9F%9A%80" alt="Typing animation" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=26&duration=4000&pause=800&color=1E90FF&center=true&vCenter=true&width=850&lines=Sistem+Pakar+Diagnosa+Kerusakan+Laptop;Menggunakan+Metode+Forward+Chaining;" alt="Typing animation" />
 </p>
 
 <p align="center">
@@ -15,7 +19,10 @@
 </p>
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" />
+  <img 
+    src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" 
+    width="100%" 
+  />
 </div>
 
 <br>
@@ -25,21 +32,15 @@
 **PakarLaptop** adalah **aplikasi web sistem pakar** yang membantu mendiagnosa kerusakan laptop berdasarkan gejala yang dipilih pengguna.  
 Menggunakan metode **Forward Chaining** (rule-based inference) untuk menyimpulkan kerusakan secara logis dan memberikan **solusi perbaikan** yang praktis.
 
-### ✨ Fitur Utama
-- Diagnosa otomatis berbasis gejala (multi-select)
-- Mesin inferensi Forward Chaining sederhana tapi powerful
-- UI responsif & modern (Tailwind CSS + Flask templates)
-- Hasil diagnosa + saran langkah perbaikan jelas
-- Mudah di-deploy ke Vercel (serverless-friendly)
-- Kode bersih, mudah dimodifikasi / ditambah rule baru
-
-<br>
-
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" />
+  <img 
+    src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" 
+    width="100%" 
+  />
 </div>
 
-## 🚀 Cara Menjalankan Lokal (Step-by-Step)
+
+## 🚀 Cara Menjalankan di Lokal (Step-by-Step)
 
 ```bash
 # 1. Clone repo
@@ -81,8 +82,12 @@ http://127.0.0.1:5000
 ```
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" />
+  <img 
+    src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" 
+    width="100%" 
+  />
 </div>
+
 
 ## 👥 Anggota Kelompok 2
 
@@ -98,89 +103,37 @@ http://127.0.0.1:5000
 | 202243500538 | Raditha Andaliaripa |
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" />
+  <img 
+    src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" 
+    width="100%" 
+  />
 </div>
 
 ## 🛠️ Teknologi yang Digunakan
 
 <p align="center">
-  <style>
-    .tech-card {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 16px;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      border-radius: 16px;
-      border: 1px solid #334155;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-      cursor: pointer;
-    }
-    .tech-card:hover {
-      transform: scale(1.12);
-      box-shadow: 0 0 20px rgba(30, 144, 255, 0.6);
-      border-color: #1e90ff;
-    }
-    .tech-card img {
-      display: block;
-      margin: 0 auto 8px;
-    }
-    .tech-card span {
-      font-size: 0.9rem;
-      color: #94a3b8;
-      font-weight: 500;
-    }
-  </style>
 
-  <div class="tech-card">
-    <a href="https://www.python.org/" target="_blank">
-      <img src="https://skillicons.dev/icons?i=python" height="60" alt="Python" />
-    </a>
-    <span>Python 3.9+</span>
-  </div>
+[![Python](https://img.shields.io/badge/Python-3.10%20Programming%20Language-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+&nbsp;&nbsp;
+[![Flask](https://img.shields.io/badge/Flask-2.2%20Backend%20Framework-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+&nbsp;&nbsp;
+[![Jinja2](https://img.shields.io/badge/Jinja2-Python%20Template%20Engine-B41717?style=for-the-badge&logo=jinja&logoColor=white)](https://jinja.palletsprojects.com/)
 
-  <div class="tech-card">
-    <a href="https://flask.palletsprojects.com/" target="_blank">
-      <img src="https://skillicons.dev/icons?i=flask" height="60" alt="Flask" />
-    </a>
-    <span>Flask</span>
-  </div>
+<br>
 
-  <div class="tech-card">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">
-      <img src="https://skillicons.dev/icons?i=html" height="60" alt="HTML5" />
-    </a>
-    <span>HTML5</span>
-  </div>
+[![HTML5](https://img.shields.io/badge/HTML5-Markup%20Language-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+&nbsp;&nbsp;
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.1%20CSS%20Framework-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+&nbsp;&nbsp;
+[![Vercel](https://img.shields.io/badge/Vercel-Deployment-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
-  <div class="tech-card">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">
-      <img src="https://skillicons.dev/icons?i=css" height="60" alt="CSS3" />
-    </a>
-    <span>CSS3</span>
-  </div>
-
-  <div class="tech-card">
-    <a href="https://tailwindcss.com/" target="_blank">
-      <img src="https://skillicons.dev/icons?i=tailwind" height="60" alt="Tailwind CSS" />
-    </a>
-    <span>Tailwind CSS</span>
-  </div>
-
-  <div class="tech-card">
-    <a href="https://vercel.com/" target="_blank">
-      <img src="https://skillicons.dev/icons?i=vercel" height="60" alt="Vercel" />
-    </a>
-    <span>Vercel</span>
-  </div>
-</p>
-
-<p align="center">
-  <sub><b>Python 3.9+ • Flask • HTML5 • CSS3 • Tailwind CSS • Vercel</b></sub>
 </p>
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" />
+  <img 
+    src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" 
+    width="100%" 
+  />
 </div>
 
 ## 🧠 Sumber Pengetahuan (Pakar Digital)
@@ -200,8 +153,12 @@ Basis pengetahuan sistem disusun berdasarkan referensi teknisi laptop profesiona
 </p>
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" />
+  <img 
+    src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" 
+    width="100%" 
+  />
 </div>
+
 
 ## 🚀 Demo Program
 
@@ -209,12 +166,4 @@ Basis pengetahuan sistem disusun berdasarkan referensi teknisi laptop profesiona
   <a href="https://pakarlaptop.vercel.app" target="_blank">
     <img src="https://img.shields.io/badge/🚀%20Launch%20Live%20Demo-PakarLaptop-0A66C2?style=for-the-badge&logo=vercel&logoColor=white">
   </a>
-</p>
-
-<div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&height=4&section=header" />
-</div>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:1E90FF,100:0A66C2&height=170&section=footer&animation=twinkling"/>
 </p>
