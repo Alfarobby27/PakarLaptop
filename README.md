@@ -1,11 +1,9 @@
 <!-- ================= HEADER ANIMATION ================= -->
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=venom&color=0:0A66C2,100:1E90FF&height=220&section=header&text=PakarLaptop&fontSize=48&fontColor=ffffff&animation=twinkling&fontAlignY=35" />
+<p align="center"> <img src="https://capsule-render.vercel.app/api?type=venom&color=0:0A66C2,100:1E90FF&height=220&section=header&text=PakarLaptop&fontSize=48&fontColor=ffffff&animation=twinkling&fontAlignY=35" />
 </p>
 
-<p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=22&duration=3000&pause=1000&color=0A66C2&center=true&vCenter=true&width=750&lines=Sistem+Pakar+Diagnosa+Laptop;Menggunakan +Metode+Forward+Chaining;Berbasis+Flask+%26+Python;" />
+<p align="center"> <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=22&duration=3000&pause=1000&color=0A66C2&center=true&vCenter=true&width=750&lines=Sistem+Pakar+Diagnosa+Laptop;Menggunakan +Metode+Forward+Chaining;Berbasis+Flask+%26+Python;" /> 
 </p>
 
 <p align="center">
@@ -14,7 +12,9 @@
   <img src="https://img.shields.io/github/forks/Alfarobby27/PakarLaptop?style=for-the-badge&logo=github&color=blue">
 </p>
 
----
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0A66C2,100:1E90FF&height=2&section=header"/>
+</p>
 
 # 📖 Deskripsi
 
@@ -24,7 +24,9 @@ yang membantu pengguna mengidentifikasi kerusakan laptop berdasarkan gejala yang
 Sistem dibangun menggunakan **Flask Framework** dengan mesin inferensi rule-based  
 untuk menghasilkan diagnosa dan solusi secara sistematis.
 
----
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0A66C2,100:1E90FF&height=2&section=header"/>
+</p>
 
 # ⚙️ Cara Menjalankan Secara Lokal
 
@@ -48,7 +50,9 @@ Buka browser:
 http://127.0.0.1:5000
 ```
 
----
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0A66C2,100:1E90FF&height=2&section=header"/>
+</p>
 
 ## 👥 Anggota Kelompok 2
 
@@ -63,13 +67,11 @@ http://127.0.0.1:5000
 | 202243500503 | Rani Stevidayanti |
 | 202243500538 | Raditha Andaliaripa |
 
----
-
-# 🛠️ Teknologi yang Digunakan
-
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0A66C2,100:1E90FF&height=2&section=header"/>
 </p>
+
+# 🛠️ Teknologi yang Digunakan
 
 <p align="center">
   <a href="https://www.python.org/" target="_blank">
@@ -110,16 +112,9 @@ http://127.0.0.1:5000
   </sub>
 </p>
 
----
-
-## 🧠 Arsitektur Sistem
-
-1. User memilih gejala
-2. Sistem mencocokkan dengan rule pada `rules.py`
-3. Mesin inferensi melakukan Forward Chaining
-4. Sistem menghasilkan diagnosa & solusi
-
----
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0A66C2,100:1E90FF&height=2&section=header"/>
+</p>
 
 ## 🧠 Sumber Pengetahuan (Pakar Digital)
 
@@ -137,7 +132,9 @@ Basis pengetahuan sistem disusun berdasarkan referensi teknisi laptop profesiona
   </a>
 </p>
 
----
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0A66C2,100:1E90FF&height=2&section=header"/>
+</p>
 
 ## 🚀 Demo Program
 
@@ -147,7 +144,9 @@ Basis pengetahuan sistem disusun berdasarkan referensi teknisi laptop profesiona
   </a>
 </p>
 
----
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:0A66C2,100:1E90FF&height=2&section=header"/>
+</p>
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:1E90FF,100:0A66C2&height=170&section=footer&animation=twinkling"/>
