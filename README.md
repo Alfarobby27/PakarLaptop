@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=22&duration=3000&pause=1000&color=0A66C2&center=true&vCenter=true&width=750&lines=Sistem+Pakar+Diagnosa+Laptop;Metode+Forward+Chaining;Berbasis+Flask+%26+Python;Rule-Based+Inference+System;Deploy+on+Vercel" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=22&duration=3000&pause=1000&color=0A66C2&center=true&vCenter=true&width=750&lines=Sistem+Pakar+Diagnosa+Laptop;Menggunakan +Metode+Forward+Chaining;Berbasis+Flask+%26+Python;" />
 </p>
 
 <p align="center">
@@ -13,12 +13,6 @@
   <img src="https://img.shields.io/github/stars/Alfarobby27/PakarLaptop?style=for-the-badge&logo=github&color=yellow">
   <img src="https://img.shields.io/github/forks/Alfarobby27/PakarLaptop?style=for-the-badge&logo=github&color=blue">
 </p>
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Alfarobby27&show_icons=true&theme=tokyonight&hide_border=true" height="150">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Alfarobby27&layout=compact&theme=tokyonight&hide_border=true" height="150">
-</p>
-
 ---
 
 # 📖 Deskripsi
@@ -72,31 +66,75 @@ http://127.0.0.1:5000
 
 # 🛠️ Teknologi yang Digunakan
 
-<p align="center"> <table> <tr> <td align="center" width="180"> <a href="https://www.python.org/" target="_blank"> <img src="https://skillicons.dev/icons?i=python" width="65"/> <br><br> <b>Python 3.9+</b> </a>
+<div align="center">
 
+<table>
+<tr>
+<td align="center" width="180">
+<a href="https://www.python.org/" target="_blank">
+<img src="https://skillicons.dev/icons?i=python" width="65"/>
+<br><br>
+<b>Python 3.9+</b>
+</a>
+<br><br>
 Backend Engine & Logic Processing
+</td>
 
-</td> <td align="center" width="180"> <a href="https://flask.palletsprojects.com/" target="_blank"> <img src="https://skillicons.dev/icons?i=flask" width="65"/> <br><br> <b>Flask 2.2</b> </a>
-
+<td align="center" width="180">
+<a href="https://flask.palletsprojects.com/" target="_blank">
+<img src="https://skillicons.dev/icons?i=flask" width="65"/>
+<br><br>
+<b>Flask 2.2</b>
+</a>
+<br><br>
 Web Framework
+</td>
 
-</td> <td align="center" width="180"> <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank"> <img src="https://skillicons.dev/icons?i=html" width="65"/> <br><br> <b>HTML5</b> </a>
-
+<td align="center" width="180">
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">
+<img src="https://skillicons.dev/icons?i=html" width="65"/>
+<br><br>
+<b>HTML5</b>
+</a>
+<br><br>
 Structure Layout
+</td>
+</tr>
 
-</td> </tr> <tr> <td align="center" width="180"> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank"> <img src="https://skillicons.dev/icons?i=css" width="65"/> <br><br> <b>CSS3</b> </a>
-
+<tr>
+<td align="center" width="180">
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">
+<img src="https://skillicons.dev/icons?i=css" width="65"/>
+<br><br>
+<b>CSS3</b>
+</a>
+<br><br>
 Styling & UI
+</td>
 
-</td> <td align="center" width="180"> <a href="https://tailwindcss.com/" target="_blank"> <img src="https://skillicons.dev/icons?i=tailwind" width="65"/> <br><br> <b>Tailwind CSS</b> </a>
-
+<td align="center" width="180">
+<a href="https://tailwindcss.com/" target="_blank">
+<img src="https://skillicons.dev/icons?i=tailwind" width="65"/>
+<br><br>
+<b>Tailwind CSS</b>
+</a>
+<br><br>
 Utility-First Framework
+</td>
 
-</td> <td align="center" width="180"> <a href="https://vercel.com/" target="_blank"> <img src="https://skillicons.dev/icons?i=vercel" width="65"/> <br><br> <b>Vercel</b> </a>
-
+<td align="center" width="180">
+<a href="https://vercel.com/" target="_blank">
+<img src="https://skillicons.dev/icons?i=vercel" width="65"/>
+<br><br>
+<b>Vercel</b>
+</a>
+<br><br>
 Cloud Deployment
+</td>
+</tr>
+</table>
 
-</td> </tr> </table> </p>
+</div>>
 
 ---
 
