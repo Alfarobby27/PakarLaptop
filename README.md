@@ -115,7 +115,7 @@ http://127.0.0.1:5000
 
 [![Python](https://img.shields.io/badge/Python-3.10%20Programming%20Language-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 &nbsp;&nbsp;
-[![Flask](https://img.shields.io/badge/Flask-2.2%20Backend%20Framework-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![Flask](https://img.shields.io/badge/Flask-2.3.3%20Backend%20Framework-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 &nbsp;&nbsp;
 [![Jinja2](https://img.shields.io/badge/Jinja2-Python%20Template%20Engine-B41717?style=for-the-badge&logo=jinja&logoColor=white)](https://jinja.palletsprojects.com/)
 
