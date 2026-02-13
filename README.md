@@ -163,6 +163,11 @@ Basis pengetahuan sistem disusun berdasarkan referensi teknisi laptop profesiona
 ## 🚀 Demo Program
 
 <p align="center">
+  <!-- Gambar lokal -->
+  <img src="laporan_project_sbp/pakarlaptop.png" alt="Demo PakarLaptop" width="600"/>
+</p>
+
+<p align="center">
   <a href="https://pakarlaptop.vercel.app" target="_blank">
     <img src="https://img.shields.io/badge/🚀%20Launch%20Live%20Demo-PakarLaptop-0A66C2?style=for-the-badge&logo=vercel&logoColor=white">
   </a>
