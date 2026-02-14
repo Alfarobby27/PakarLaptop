@@ -1,159 +1,150 @@
 {% extends "base.html" %} {% block content %}
 
-<div class="max-w-6xl mx-auto space-y-8">
+<div class="max-w-6xl mx-auto space-y-10">
   <!-- ================= HEADER ================= -->
   <div>
     <h3 class="text-3xl font-bold text-white mb-2">Proses Forward Chaining</h3>
     <p class="text-slate-400">
-      Menampilkan proses penalaran sistem pakar berdasarkan fakta dan aturan
+      Proses penalaran berbasis rule (data-driven reasoning).
     </p>
   </div>
 
   <!-- ================= INFO AWAL ================= -->
-  <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 space-y-3">
-    <p class="text-slate-300">
-      <strong>Mode Diagnosa:</strong>
-      <span class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400">
-        {{ mode_label }}
-      </span>
-    </p>
-
-    <p class="text-slate-300">
-      <strong>Fakta Awal (Kode):</strong>
-      {% if selected_symptoms %} {{ selected_symptoms | unique | join(", ") }}
-      {% else %}
-      <span class="italic text-slate-400">Tidak ada fakta awal</span>
-      {% endif %}
-    </p>
-
-    <p class="text-slate-400">
-      <strong>Fakta Awal (Gejala):</strong>
-      {% if selected_symptoms %} {% for g in selected_symptoms | unique %} {{
-      SYMPTOMS[g] }}{% if not loop.last %}, {% endif %} {% endfor %} {% else %}
-      <span class="italic">Tidak ada gejala yang dipilih</span>
-      {% endif %}
-    </p>
-  </div>
-
-  <!-- ================= PROSES INFERENSI ================= -->
-  <div class="bg-slate-800 border border-slate-700 rounded-xl p-6">
-    <h4 class="text-xl font-semibold text-white mb-6">🔄 Tahapan Inferensi</h4>
-
-    {% if process_log %}
-    <ul class="space-y-6">
-      {# 🔴 BATASI SAMPAI INFERENSI SELESAI #} {% for step in process_log if
-      step.step <= inference_finished_at %}
-      <li
-        class="relative pl-6 border-l-4 {% if step.status %} border-emerald-500 {% else %} border-red-500 {% endif %}"
-      >
-        <!-- STEP HEADER -->
-        <div class="flex flex-wrap items-center gap-3 mb-2">
-          <span
-            class="px-3 py-1 rounded-full bg-slate-700 text-slate-200 text-sm"
-          >
-            Step {{ step.step }}
-          </span>
-
-          <span
-            class="px-3 py-1 rounded-full bg-slate-700 text-slate-200 text-sm"
-          >
-            Rule {{ step.rule }}
-          </span>
-
-          {% if step.status %}
-          <span
-            class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-semibold"
-          >
-            TRUE
-          </span>
-          {% else %}
-          <span
-            class="px-3 py-1 rounded-full bg-red-500/20 text-red-400 text-sm font-semibold"
-          >
-            FALSE
-          </span>
-          {% endif %}
-        </div>
-
-        <!-- IF -->
-        <p class="text-slate-300">
-          <strong>IF ({{ mode }}):</strong>
-          {% for c in step.if_condition %}
-          <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-400 text-sm">
-            {{ c }}
-          </span>
-          {% if not loop.last %}
-          <span class="text-slate-400 mx-1">{{ mode }}</span>
-          {% endif %} {% endfor %}
-        </p>
-
-        <!-- THEN -->
-        <p class="text-slate-300 mt-1">
-          <strong>THEN:</strong>
-          <span
-            class="px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 text-sm"
-          >
-            {{ step.then_code }}
-          </span>
-          — {{ step.then_name }}
-        </p>
-
-        <!-- FAKTA -->
-        <div class="grid md:grid-cols-2 gap-4 mt-3 text-sm">
-          <div class="bg-slate-900 rounded-lg p-3">
-            <p class="text-slate-400 font-medium mb-1">Fakta Sebelum</p>
-            <p class="text-slate-300">{{ step.facts_before | join(", ") }}</p>
-          </div>
-
-          <div class="bg-slate-900 rounded-lg p-3">
-            <p class="text-slate-400 font-medium mb-1">Fakta Sesudah</p>
-            <p class="text-slate-300">{{ step.facts_after | join(", ") }}</p>
-          </div>
-        </div>
-
-        {% if not step.status %}
-        <p class="text-red-400 text-sm mt-3 italic">
-          Rule tidak terpenuhi pada tahap ini.
-        </p>
-        {% endif %}
-      </li>
-      {% endfor %}
-    </ul>
-
-    <!-- PENANDA INFERENSI SELESAI -->
-    <div class="mt-8 text-center">
+  <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 space-y-4">
+    <div>
+      <span class="font-semibold text-slate-300">Mode Evaluasi:</span>
       <span
-        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold"
+        class="ml-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm"
       >
-        ✔ Proses inferensi dihentikan karena tidak ada fakta baru
+        {{ mode_label }}
       </span>
     </div>
 
+    <div>
+      <span class="font-semibold text-slate-300">Fakta Awal:</span>
+      <div class="mt-2 flex flex-wrap gap-2">
+        {% for g in selected_symptoms %}
+        <span class="px-3 py-2 bg-slate-700 rounded text-xs text-slate-200">
+          <strong>{{ g }}</strong> — {{ SYMPTOMS[g] }}
+        </span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TABEL INFERENSI ================= -->
+  <div
+    class="bg-slate-800 border border-slate-700 rounded-xl p-6 overflow-x-auto"
+  >
+    <h4 class="text-xl font-semibold text-white mb-6">
+      Tabel Proses Inferensi
+    </h4>
+
+    {% if process_log %}
+
+    <table class="w-full border-collapse text-sm text-slate-300">
+      <thead class="bg-slate-900 text-slate-200">
+        <tr>
+          <th class="border border-slate-700 px-3 py-2">Step</th>
+          <th class="border border-slate-700 px-3 py-2">Rule</th>
+          <th class="border border-slate-700 px-3 py-2">IF (Premis)</th>
+          <th class="border border-slate-700 px-3 py-2">THEN</th>
+          <th class="border border-slate-700 px-3 py-2">Status</th>
+          <th class="border border-slate-700 px-3 py-2">Fakta Sebelum</th>
+          <th class="border border-slate-700 px-3 py-2">Fakta Sesudah</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for step in process_log %}
+        <tr class="hover:bg-slate-700/40 transition">
+          <!-- STEP -->
+          <td class="border border-slate-700 px-3 py-2 text-center">
+            {{ step.step }}
+          </td>
+
+          <!-- RULE -->
+          <td
+            class="border border-slate-700 px-3 py-2 text-center font-semibold"
+          >
+            {{ step.rule }}
+          </td>
+
+          <!-- IF -->
+          <td class="border border-slate-700 px-3 py-2">
+            {% for c in step.if_condition %} {{ c }}{% if not loop.last %} {{
+            mode }} {% endif %} {% endfor %}
+          </td>
+
+          <!-- THEN -->
+          <td class="border border-slate-700 px-3 py-2 text-emerald-400">
+            {{ step.then_code }}
+          </td>
+
+          <!-- STATUS -->
+          <td class="border border-slate-700 px-3 py-2 text-center">
+            {% if step.status %}
+            <span
+              class="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded text-xs font-bold"
+            >
+              TRUE
+            </span>
+            {% else %}
+            <span
+              class="px-2 py-1 bg-red-500/20 text-red-400 rounded text-xs font-bold"
+            >
+              FALSE
+            </span>
+            {% endif %}
+          </td>
+
+          <!-- FAKTA SEBELUM -->
+          <td class="border border-slate-700 px-3 py-2">
+            {{ step.facts_before | join(", ") }}
+          </td>
+
+          <!-- FAKTA SESUDAH -->
+          <td class="border border-slate-700 px-3 py-2">
+            {{ step.facts_after | join(", ") }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="mt-6 text-center text-emerald-400 text-sm">
+      Inferensi berhenti karena tidak ada fakta baru yang dapat ditambahkan
+      lagi.
+    </div>
+
     {% else %}
-    <p class="text-slate-400 italic">
-      Tidak terdapat proses inferensi yang dapat ditampilkan.
-    </p>
+    <p class="text-slate-400 italic">Tidak terdapat proses inferensi.</p>
     {% endif %}
   </div>
 
   <!-- ================= KESIMPULAN ================= -->
   <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-6">
-    <h4 class="text-xl font-bold text-white mb-4">✅ Kesimpulan Akhir</h4>
+    <h4 class="text-xl font-bold text-white mb-4">Kesimpulan Akhir</h4>
+    {% if final_fault %}
 
-    {% if final_fault_detail %} {% for fault in final_fault_detail %}
-    <div class="mb-6">
-      <p class="text-emerald-400 font-bold text-lg">
-        {{ fault.code }} — {{ fault.name }}
-      </p>
-      <p class="text-slate-300 mt-2">
-        <strong>Solusi:</strong><br />
-        {{ fault.solution }}
-      </p>
+    <div class="text-emerald-400 font-bold text-lg mb-2">
+      {{ final_fault.code }} — {{ final_fault.name }}
     </div>
-    {% endfor %} {% else %}
+
+    <div class="text-slate-300">
+      <strong>Solusi:</strong>
+      <p class="mt-1">{{ final_fault.solution }}</p>
+    </div>
+
+    {% elif diagnosis_message %}
+
+    <p class="text-slate-300 italic">{{ diagnosis_message }}</p>
+
+    {% else %}
+
     <p class="text-slate-300 italic">
       Tidak ditemukan kesimpulan berdasarkan fakta yang diberikan.
     </p>
+
     {% endif %}
   </div>
 

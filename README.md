@@ -6,7 +6,6 @@
   />
 </p>
 
-
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=26&duration=4000&pause=800&color=1E90FF&center=true&vCenter=true&width=850&lines=Sistem+Pakar+Diagnosa+Kerusakan+Laptop;Menggunakan+Metode+Forward+Chaining;" alt="Typing animation" />
 </p>
@@ -38,7 +37,6 @@ Menggunakan metode **Forward Chaining** (rule-based inference) untuk menyimpulka
     width="100%" 
   />
 </div>
-
 
 ## 🚀 Cara Menjalankan di Lokal (Step-by-Step)
 
@@ -88,19 +86,18 @@ http://127.0.0.1:5000
   />
 </div>
 
-
 ## 👥 Anggota Kelompok 2
 
-| NPM          | Nama |
+| NPM          | Nama                                                        |
 | ------------ | ----------------------------------------------------------- |
-| 202243500496 | Muhamad Suhada |
-| 202243500497 | [Alfarobby](https://github.com/Alfarobby27) |
-| 202243500500 | [Ahmad Badawi](https://github.com/Ahmadbadawi123) |
+| 202243500496 | Muhamad Suhada                                              |
+| 202243500497 | [Alfarobby](https://github.com/Alfarobby27)                 |
+| 202243500500 | [Ahmad Badawi](https://github.com/Ahmadbadawi123)           |
 | 202243500501 | [Abdur Rosyid Fachriansyah](https://github.com/dellwatch21) |
-| 202243500502 | [Sangga Buana](https://github.com/sanggabuana453) |
-| 202243500540 | Novia Citra Sholihah |
-| 202243500503 | Rani Stevidayanti |
-| 202243500538 | Raditha Andaliaripa |
+| 202243500502 | [Sangga Buana](https://github.com/sanggabuana453)           |
+| 202243500540 | Novia Citra Sholihah                                        |
+| 202243500503 | Rani Stevidayanti                                           |
+| 202243500538 | Raditha Andaliaripa                                         |
 
 <div align="center">
   <img 
@@ -158,7 +155,6 @@ Basis pengetahuan sistem disusun berdasarkan referensi teknisi laptop profesiona
     width="100%" 
   />
 </div>
-
 
 ## 🚀 Demo Program
 

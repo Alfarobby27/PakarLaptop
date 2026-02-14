@@ -30,10 +30,6 @@ FAULTS = {
     "K7": {
         "name": "Kerusakan power switch",
         "solution": "Memeriksa dan membersihkan komponen power switch. Jika laptop tetap tidak dapat menyala, kemungkinan terdapat gangguan pada rangkaian daya di mainboard."
-    },
-    "K8": {
-        "name": "Kerusakan motherboard",
-        "solution": "Apabila setelah dilakukan pemeriksaan komponen lain laptop tetap tidak berfungsi, maka disimpulkan terjadi kerusakan pada motherboard dan disarankan dilakukan pemeriksaan lanjutan oleh teknisi."
     }
 }
 
@@ -51,77 +47,76 @@ SYMPTOMS = {
     "G11": "Laptop sulit menyala"
 }
 
+# ================= RULE BASE =================
+
 RULES = {
-    "K1": ["G1", "G2", "G3", "G6"],
-    "K2": ["G4"],
-    "K3": ["G5"],
-    "K4": ["G7", "G8"],
-    "K5": ["G9"],
-    "K6": ["G10"],
-    "K7": ["G11"]
+    "R1": {"if": ["G1", "G2", "G3", "G6"], "then": "K1"},
+    "R2": {"if": ["G4"], "then": "K2"},
+    "R3": {"if": ["G5"], "then": "K3"},
+    "R4": {"if": ["G7", "G8"], "then": "K4"},
+    "R5": {"if": ["G9"], "then": "K5"},
+    "R6": {"if": ["G10"], "then": "K6"},
+    "R7": {"if": ["G11"], "then": "K7"}
 }
 
 # ================= FORWARD CHAINING =================
+def forward_chaining(selected_symptoms, mode="AND"):
 
-def forward_chaining(selected_symptoms: List[str], mode: str = "AND") -> Dict[str, Any]:
     facts = set(selected_symptoms)
-    used_rules = set()
+    initial_facts = set(facts)
+
     log = []
-
     step = 1
-    inference_finished_at = 0
+    last_conclusion = None
 
-    while True:
-        new_fact = False
+    mode = mode.upper()
+    if mode not in ("AND", "OR"):
+        raise ValueError("Mode harus 'AND' atau 'OR'")
 
-        for rule, conditions in RULES.items():
-            if rule in used_rules:
-                continue
+    for rule_code, rule in RULES.items():
+        premises = rule["if"]
+        conclusion = rule["then"]
+        facts_before = sorted(facts)
 
-            facts_before = sorted(facts)
+        # Cek minimal satu premis cocok untuk menjalankan rule
+        if any(p in facts for p in premises):
+            # Evaluasi status rule sesuai mode
+            if mode == "AND":
+                status = all(p in facts for p in premises)
+            else:  # OR
+                status = any(p in facts for p in premises)
 
-            satisfied = (
-                all(c in facts for c in conditions)
-                if mode == "AND"
-                else any(c in facts for c in conditions)
-            )
-
-            if satisfied:
-                used_rules.add(rule)
-                if rule not in facts:
-                    facts.add(rule)
-                    new_fact = True
-                    inference_finished_at = step
+            # Tambahkan kesimpulan jika status True
+            if status and conclusion not in facts:
+                facts.add(conclusion)
+                last_conclusion = conclusion
 
             log.append({
                 "step": step,
-                "rule": rule,
-                "status": satisfied,
-                "if_condition": conditions,
-                "then_code": rule,
-                "then_name": FAULTS[rule]["name"],
+                "rule": rule_code,
+                "if_condition": premises,
+                "then_code": conclusion,
+                "then_name": FAULTS.get(conclusion, {}).get("name", ""),
+                "status": status,
                 "facts_before": facts_before,
                 "facts_after": sorted(facts)
             })
 
             step += 1
 
-        if not new_fact:
-            break
-
-    final_faults = [
-        {
-            "code": f,
-            "name": FAULTS[f]["name"],
-            "solution": FAULTS[f]["solution"]
+    final_fault = None
+    if last_conclusion:
+        final_fault = {
+            "code": last_conclusion,
+            "name": FAULTS[last_conclusion]["name"],
+            "solution": FAULTS[last_conclusion]["solution"]
         }
-        for f in facts if f in FAULTS
-    ]
 
     return {
-        "facts_initial": sorted(set(selected_symptoms)),
-        "log": log,
-        "final_faults": final_faults,
-        "inference_finished_at": inference_finished_at,
-        "mode": mode
+        "mode": mode,
+        "facts_initial": sorted(initial_facts),
+        "facts_final": sorted(facts),
+        "final_fault": final_fault,
+        "log": log
     }
+

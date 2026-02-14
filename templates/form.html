@@ -7,99 +7,122 @@
       Form Diagnosa Kerusakan Laptop
     </h3>
     <p class="text-slate-400 text-sm sm:text-base">
-      Pilih gejala secara manual atau gunakan aturan (rule) untuk diagnosa cepat
+      Pilih gejala sebagai <strong>fakta awal (working memory)</strong>. Sistem
+      akan melakukan inferensi menggunakan metode
+      <strong>Forward Chaining (Data-Driven Reasoning)</strong>.
     </p>
   </div>
 
-  <!-- ================= MODE DIAGNOSA ================= -->
-  <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6">
-    <h4 class="text-lg sm:text-xl font-semibold text-white mb-4">
-      ⚙️ Mode Diagnosa
-    </h4>
-
-    <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
-      <label class="flex items-center gap-3 cursor-pointer">
-        <input
-          type="radio"
-          name="mode"
-          value="AND"
-          form="diagnoseForm"
-          checked
-          class="w-5 h-5 accent-blue-500"
-        />
-        <span class="text-slate-200 text-sm sm:text-base">
-          AND (Semua gejala harus terpenuhi)
-        </span>
-      </label>
-
-      <label class="flex items-center gap-3 cursor-pointer">
-        <input
-          type="radio"
-          name="mode"
-          value="OR"
-          form="diagnoseForm"
-          class="w-5 h-5 accent-blue-500"
-        />
-        <span class="text-slate-200 text-sm sm:text-base">
-          OR (Salah satu gejala terpenuhi)
-        </span>
-      </label>
-    </div>
-  </div>
-
-  <!-- ================= RULE SELECTOR ================= -->
-  <div class="bg-slate-800/70 border border-slate-700 rounded-2xl p-6">
-    <h4 class="text-lg sm:text-xl font-semibold text-white mb-4">
-      🔍 Pilih Berdasarkan Aturan
-    </h4>
-
-    {% set rules = { "R1": "G1,G2,G3,G6", "R2": "G4", "R3": "G5", "R4": "G7,G8",
-    "R5": "G9", "R6": "G10", "R7": "G11" } %}
-
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      {% for r, g in rules.items() %}
-      <button
-        type="button"
-        data-symptoms="{{ g }}"
-        class="rule-btn rounded-xl border border-slate-600 p-4 bg-slate-900 text-slate-200 hover:bg-blue-600/20 transition-all"
-      >
-        <div class="flex items-center justify-between">
-          <span class="text-lg font-bold">{{ r }}</span>
-          <span class="text-xs px-2 py-1 rounded-full bg-slate-700">
-            Rule
-          </span>
-        </div>
-        <p class="text-xs text-slate-400 mt-2">Pilih otomatis gejala</p>
-      </button>
-      {% endfor %}
-
-      <button
-        type="button"
-        id="resetBtn"
-        class="rounded-xl border border-red-500/40 p-4 bg-red-500/10 hover:bg-red-500/30 text-red-400 transition"
-      >
-        Reset
-      </button>
-    </div>
-  </div>
-
   <!-- ================= FORM ================= -->
-  <form method="POST" action="/hasil" id="diagnoseForm" class="space-y-8">
-    <!-- ===== DESKTOP TABLE ===== -->
+  <form
+    method="POST"
+    action="{{ url_for('hasil_diagnosa') }}"
+    id="diagnoseForm"
+    class="space-y-8"
+  >
+    <!-- ================= MODE ================= -->
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6">
+      <h4 class="text-lg font-semibold text-white mb-4">
+        ⚙️ Mode Evaluasi Global
+      </h4>
+
+      <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+        Mode menentukan bagaimana <strong>mesin inferensi</strong>
+        mengevaluasi premis rule saat proses Forward Chaining berlangsung.
+        <br /><br />
+        <strong>Struktur rule tetap bersifat konjungtif (AND)</strong>, namun
+        engine dapat mengevaluasi secara:
+        <br />
+        • <strong>AND</strong> → semua premis harus terpenuhi
+        <br />
+        • <strong>OR</strong> → minimal satu premis terpenuhi
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-6">
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input
+            type="radio"
+            name="mode"
+            value="AND"
+            checked
+            class="w-5 h-5 accent-blue-500"
+          />
+          <span class="text-slate-200">
+            AND (Semua premis harus terpenuhi)
+          </span>
+        </label>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input
+            type="radio"
+            name="mode"
+            value="OR"
+            class="w-5 h-5 accent-blue-500"
+          />
+          <span class="text-slate-200">
+            OR (Minimal satu premis terpenuhi)
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- ================= RULE HELPER ================= -->
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6">
+      <h4 class="text-lg font-semibold text-white mb-2">
+        🔎 Bantuan Pemilihan Gejala Berdasarkan Rule
+      </h4>
+
+      <p class="text-xs text-slate-400 mb-4">
+        Tombol berikut hanya membantu memilih gejala sesuai premis rule. Proses
+        inferensi tetap dilakukan sepenuhnya oleh engine Forward Chaining.
+      </p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        {% for rule, rule_data in rules.items() %}
+        <button
+          type="button"
+          data-symptoms="{{ rule_data['if'] | join(',') }}"
+          class="rule-btn rounded-xl border border-slate-600 p-4 bg-slate-900 text-slate-200 hover:bg-blue-600/20 transition"
+        >
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold">{{ rule }}</span>
+            <span class="text-xs px-2 py-1 rounded-full bg-slate-700">
+              {{ rule_data['if'] | length }} Premis
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-400 mt-2">
+            IF {% for p in rule_data['if'] %} {{ p }}{% if not loop.last %} AND
+            {% endif %} {% endfor %} → {{ rule_data['then'] }}
+          </p>
+        </button>
+        {% endfor %}
+
+        <button
+          type="button"
+          id="resetBtn"
+          class="rounded-xl border border-red-500/40 p-4 bg-red-500/10 hover:bg-red-500/30 text-red-400 transition"
+        >
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- ================= GEJALA TABLE ================= -->
     <div
-      class="hidden md:block bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden"
+      class="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden"
     >
       <table class="w-full">
         <thead class="bg-slate-900">
           <tr>
             <th class="px-6 py-4 text-slate-300">Pilih</th>
             <th class="px-6 py-4 text-slate-300">Kode</th>
-            <th class="px-6 py-4 text-slate-300">Gejala</th>
+            <th class="px-6 py-4 text-slate-300">Gejala (Fakta)</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-slate-700">
           {% for code, name in symptoms.items() %}
-          <tr class="symptom-row hover:bg-slate-700/50 transition">
+          <tr data-code="{{ code }}" class="hover:bg-slate-700/50 transition">
             <td class="px-6 py-4 text-center">
               <input
                 type="checkbox"
@@ -108,6 +131,7 @@
                 class="symptom-checkbox w-5 h-5 accent-blue-500"
               />
             </td>
+
             <td class="px-6 py-4">
               <span
                 class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm"
@@ -115,6 +139,7 @@
                 {{ code }}
               </span>
             </td>
+
             <td class="px-6 py-4 text-slate-200">{{ name }}</td>
           </tr>
           {% endfor %}
@@ -122,53 +147,27 @@
       </table>
     </div>
 
-    <!-- ===== MOBILE CARD LIST ===== -->
-    <div class="md:hidden space-y-4">
-      {% for code, name in symptoms.items() %}
-      <label
-        class="symptom-row block bg-slate-800 border border-slate-700 rounded-xl p-4 cursor-pointer"
-      >
-        <div class="flex items-start gap-4">
-          <input
-            type="checkbox"
-            name="symptoms"
-            value="{{ code }}"
-            class="symptom-checkbox mt-1 w-5 h-5 accent-blue-500"
-          />
-          <div>
-            <span
-              class="inline-block mb-1 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs"
-            >
-              {{ code }}
-            </span>
-            <p class="text-slate-200 text-sm">{{ name }}</p>
-          </div>
-        </div>
-      </label>
-      {% endfor %}
-    </div>
-
-    <!-- WARNING -->
+    <!-- ================= WARNING ================= -->
     <div
       id="warningMessage"
       class="hidden bg-amber-900/20 border border-amber-500/30 rounded-xl p-4"
     >
       <p class="text-amber-400 font-medium text-sm">
-        ⚠ Pilih minimal satu gejala untuk melanjutkan diagnosa.
+        ⚠ Pilih minimal satu gejala untuk memulai proses inferensi.
       </p>
     </div>
 
-    <!-- ACTION -->
+    <!-- ================= ACTION ================= -->
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <button
         type="submit"
         class="px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white text-lg font-semibold rounded-xl shadow-lg transition"
       >
-        Proses Diagnosa
+        Proses Inferensi
       </button>
 
       <a
-        href="/"
+        href="{{ url_for('index') }}"
         class="px-10 py-4 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-center"
       >
         Kembali
@@ -179,53 +178,62 @@
 
 <!-- ================= SCRIPT ================= -->
 <script>
-  const ruleButtons = document.querySelectorAll(".rule-btn");
-  const checkboxes = document.querySelectorAll(".symptom-checkbox");
-  const rows = document.querySelectorAll(".symptom-row");
-  const resetBtn = document.getElementById("resetBtn");
+  document.addEventListener("DOMContentLoaded", function () {
+    const ruleButtons = document.querySelectorAll(".rule-btn");
+    const checkboxes = document.querySelectorAll(".symptom-checkbox");
+    const resetBtn = document.getElementById("resetBtn");
+    const form = document.getElementById("diagnoseForm");
+    const warning = document.getElementById("warningMessage");
 
-  checkboxes.forEach((cb, idx) => {
-    cb.addEventListener("change", () => {
-      rows[idx].classList.toggle("bg-blue-600/10", cb.checked);
+    function highlightRow(code, state) {
+      const row = document.querySelector(`[data-code="${code}"]`);
+      if (row) row.classList.toggle("bg-blue-600/10", state);
+    }
+
+    checkboxes.forEach((cb) => {
+      cb.addEventListener("change", () => {
+        highlightRow(cb.value, cb.checked);
+      });
     });
-  });
 
-  ruleButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
+    ruleButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        ruleButtons.forEach((b) =>
+          b.classList.remove("ring-2", "ring-blue-500", "bg-blue-600/20"),
+        );
+
+        btn.classList.add("ring-2", "ring-blue-500", "bg-blue-600/20");
+
+        const selected = (btn.dataset.symptoms || "").split(",");
+
+        checkboxes.forEach((cb) => {
+          cb.checked = selected.includes(cb.value);
+          highlightRow(cb.value, cb.checked);
+        });
+      });
+    });
+
+    resetBtn.addEventListener("click", () => {
       ruleButtons.forEach((b) =>
         b.classList.remove("ring-2", "ring-blue-500", "bg-blue-600/20"),
       );
 
-      btn.classList.add("ring-2", "ring-blue-500", "bg-blue-600/20");
-
-      const symptoms = btn.dataset.symptoms.split(",");
-
       checkboxes.forEach((cb) => {
-        cb.checked = symptoms.includes(cb.value);
-        cb.dispatchEvent(new Event("change"));
+        cb.checked = false;
+        highlightRow(cb.value, false);
       });
+
+      warning.classList.add("hidden");
     });
-  });
 
-  resetBtn.addEventListener("click", () => {
-    ruleButtons.forEach((b) =>
-      b.classList.remove("ring-2", "ring-blue-500", "bg-blue-600/20"),
-    );
-    checkboxes.forEach((cb) => {
-      cb.checked = false;
-      cb.dispatchEvent(new Event("change"));
+    form.addEventListener("submit", (e) => {
+      const anyChecked = [...checkboxes].some((cb) => cb.checked);
+      if (!anyChecked) {
+        e.preventDefault();
+        warning.classList.remove("hidden");
+        warning.scrollIntoView({ behavior: "smooth" });
+      }
     });
-  });
-
-  const form = document.getElementById("diagnoseForm");
-  const warning = document.getElementById("warningMessage");
-
-  form.addEventListener("submit", (e) => {
-    if (![...checkboxes].some((cb) => cb.checked)) {
-      e.preventDefault();
-      warning.classList.remove("hidden");
-      warning.scrollIntoView({ behavior: "smooth" });
-    }
   });
 </script>
 
