@@ -67,7 +67,7 @@ pip install -r requirements.txt
 
 # 5. Jalankan aplikasi
 # Cara 1: simple
-python app.py
+python api/index.py
 
 # Cara 2: dengan debug mode (auto-reload saat edit kode)
 flask --app index --debug run
