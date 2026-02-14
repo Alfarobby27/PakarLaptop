@@ -70,7 +70,7 @@ pip install -r requirements.txt
 python api/index.py
 
 # Cara 2: dengan debug mode (auto-reload saat edit kode)
-flask --app index --debug run
+flask --app api/index --debug run
 ```
 
 Buka browser:
